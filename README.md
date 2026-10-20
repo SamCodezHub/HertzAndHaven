@@ -122,8 +122,9 @@ Two browser builds exist:
   ```bash
   cd web
   npm install
-  npm run dev      # http://localhost:5173
-  npm run build    # emits dist/
+  npm run dev       # http://localhost:5173
+  npm run build     # dist/ built for Electron (relative asset paths)
+  npm run build:web # dist/ built for Vercel (absolute paths + SPA routing)
   ```
 
 - **`web_app/`** — the legacy static caregiver build with a `localStorage` +
@@ -134,6 +135,22 @@ Two browser builds exist:
   cd web_app
   npx vercel          # deploy
   ```
+
+### Deploying the new UI to Vercel
+
+The Vercel project must be pointed at `web/`, not `web_app/`:
+
+1. Vercel → Project → **Settings → Build & Deployment**
+2. **Root Directory** → `web` (Enable "Include source files outside of the Root
+   Directory" only if prompted — not required here)
+3. Framework Preset → **Vite**
+4. Build Command → `npm run build:web`
+5. Output Directory → `dist`
+6. Redeploy (Deployments → ⋯ → Redeploy, uncheck "Use existing build cache")
+
+`web/vercel.json` already declares those values, so setting the Root Directory
+to `web` is normally the only step needed. A root-level `vercel.json` is also
+included for projects whose Root Directory is the repository root.
 
 Full `web_app` details live in `web_app/README.md`; its unit harness runs with
 `node web_app/test/harness.js`.
