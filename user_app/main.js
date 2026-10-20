@@ -9,8 +9,8 @@ const DEV_SERVER_URL =
     process.env.VITE_DEV_SERVER_URL ||
     (process.argv.includes('--dev') ? 'http://localhost:5173' : null);
 
-/** Production bundle produced by `npm run build` in ../../web. */
-const APP_INDEX = path.join(__dirname, '..', '..', 'web', 'dist', 'index.html');
+/** Production bundle produced by `npm run build` in ../web. */
+const APP_INDEX = path.join(__dirname, '..', 'web', 'dist', 'index.html');
 
 const senderSessions = new Map();
 

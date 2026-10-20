@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "dev": "electron . --dev",
-    "build:web": "npm --prefix ../../web run build",
+    "build:web": "npm --prefix ../web run build",
     "build": "npm run build:web && electron ."
   },
   "keywords": [],
