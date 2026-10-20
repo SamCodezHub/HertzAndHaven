@@ -206,23 +206,52 @@ function viewForSession(s) {
     return { user: publicUser(user), profile: profileView(user), session: { token: s.token, remember: s.remember, expiresAt: s.expiresAt } };
 }
 
+function ensureModeratorUser() {
+    if (db.users.some(u => u.isDemo && u.role === 'moderator')) return;
+    const salt = makeSalt();
+    const mod = {
+        id: 'u_demo_moderator',
+        name: 'Ops Desk',
+        email: 'moderator@hertzandhaven.app',
+        phone: '+91 80 4000 1010',
+        salt,
+        passwordHash: hashPassword('moderator@402', salt),
+        role: 'moderator',
+        isDemo: true,
+        createdAt: new Date().toISOString(),
+        profile: buildStarterProfile({
+            caregiverName: 'Hertz & Haven Ops',
+            caregiverPhone: '+91 80 4000 1010',
+            caregiverEmail: 'moderator@hertzandhaven.app',
+            seniorName: 'Command Centre',
+            seniorAddress: 'Hertz & Haven Response Command, Bengaluru'
+        })
+    };
+    mod.profile.onboarding.completed = true;
+    mod.profile.onboarding.completedAt = mod.createdAt;
+    mod.profile.senior.emergencyContacts = [
+        { priority: 1, name: 'Ops Desk', relation: 'Response Command', phone: '+91 80 4000 1010' }
+    ];
+    db.users.push(mod);
+}
+
 function ensureSeedUsers() {
-    if (!db.users.some(u => u.isDemo)) {
+    if (!db.users.some(u => u.isDemo && u.role !== 'moderator')) {
         const salt = makeSalt();
         const demo = {
-            id: 'u_demo_rehan',
-            name: 'Rehan Khan',
-            email: 'rehan.khan@hertzandhaven.app',
+            id: 'u_demo_rishabh',
+            name: 'Rishabh Sharma',
+            email: 'rishabh.sharma@hertzandhaven.app',
             phone: '+91 98450 40240',
             salt,
-            passwordHash: hashPassword('rehan@402', salt),
+            passwordHash: hashPassword('rishabh@402', salt),
             role: 'customer',
             isDemo: true,
             createdAt: new Date().toISOString(),
             profile: buildStarterProfile({
-                caregiverName: 'Rehan Khan',
+                caregiverName: 'Rishabh Sharma',
                 caregiverPhone: '+91 98450 40240',
-                caregiverEmail: 'rehan.khan@hertzandhaven.app',
+                caregiverEmail: 'rishabh.sharma@hertzandhaven.app',
                 seniorName: 'Yusuf Khan',
                 seniorAddress: 'Flat 402, Tower B, Prestige Shantiniketan, Whitefield, Bengaluru 560066'
             })
@@ -253,7 +282,7 @@ function ensureSeedUsers() {
             sensors: JSON.parse(JSON.stringify(SAMPLE_SENSORS))
         };
         demo.profile.senior.emergencyContacts = [
-            { priority: 1, name: 'Rehan Khan', relation: 'Son', phone: '+91 98450 40240' },
+            { priority: 1, name: 'Rishabh Sharma', relation: 'Son', phone: '+91 98450 40240' },
             { priority: 2, name: 'Dr. Meera Iyer', relation: 'Geriatric Physician — Manipal Hospital', phone: '+91 80 2502 4444' },
             { priority: 3, name: "Fatima D'Souza", relation: 'Neighbour — Flat 401', phone: '+91 99001 22334' }
         ];
@@ -299,6 +328,7 @@ function initStore() {
     } catch (e) {}
 
     ensureSeedUsers();
+    ensureModeratorUser();
     purgeExpiredSessions();
     db.sessions = db.sessions.filter(s => s.remember);
     persist();
@@ -363,8 +393,11 @@ function register(payload) {
     return { success: true, user: publicUser(user), profile: profileView(user), session: { token: session.token, remember: session.remember, expiresAt: session.expiresAt } };
 }
 
-function demoLogin() {
-    const user = db.users.find(u => u.isDemo) || db.users[0];
+function demoLogin(role) {
+    const wantsModerator = role === 'moderator';
+    let user = db.users.find(u => u.isDemo && (wantsModerator ? u.role === 'moderator' : u.role !== 'moderator'));
+    if (!user) user = db.users.find(u => u.role === (wantsModerator ? 'moderator' : 'customer'));
+    if (!user) user = db.users.find(u => u.isDemo) || db.users[0];
     if (!user) return { success: false, message: 'No accounts available.' };
     const session = createSession(user.id, true);
     return { success: true, user: publicUser(user), profile: profileView(user), session: { token: session.token, remember: session.remember, expiresAt: session.expiresAt } };

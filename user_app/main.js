@@ -1,7 +1,16 @@
-const { app, BrowserWindow, ipcMain, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron');
 const path = require('path');
+const fs = require('fs');
 const auth = require('./auth-store');
 const schematic = require('./sample-plan');
+
+/** Vite dev server (set by `npm run dev`, or pass --dev). */
+const DEV_SERVER_URL =
+    process.env.VITE_DEV_SERVER_URL ||
+    (process.argv.includes('--dev') ? 'http://localhost:5173' : null);
+
+/** Production bundle produced by `npm run build` in ../../web. */
+const APP_INDEX = path.join(__dirname, '..', '..', 'web', 'dist', 'index.html');
 
 const senderSessions = new Map();
 
@@ -18,23 +27,22 @@ function safe(fn) {
     }
 }
 
-function startPageFor(boot) {
-    if (!boot) return 'index.html';
-    const ob = boot.profile && boot.profile.onboarding;
-    if (boot.user.role === 'moderator') return 'dashboard.html';
-    if (!ob || !ob.completed) return 'onboarding.html';
-    return 'family-dashboard.html';
+function startHashFor(boot) {
+    if (!boot) return '/';
+    if (boot.user.role === 'moderator') return '/dashboard';
+    if (!boot.profile || !boot.profile.onboarding || !boot.profile.onboarding.completed) return '/onboarding';
+    return '/family-dashboard';
 }
 
 function createWindow() {
     Menu.setApplicationMenu(null);
 
-    const boot = auth.bootSession();
     const mainWindow = new BrowserWindow({
         width: 1280,
         height: 840,
         minWidth: 1024,
         minHeight: 700,
+        backgroundColor: '#E9F0F4',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             contextIsolation: true,
@@ -42,7 +50,21 @@ function createWindow() {
         }
     });
 
-    mainWindow.loadFile(startPageFor(boot));
+    if (DEV_SERVER_URL) {
+        mainWindow.loadURL(DEV_SERVER_URL);
+        mainWindow.webContents.openDevTools({ mode: 'detach' });
+        return;
+    }
+
+    if (!fs.existsSync(APP_INDEX)) {
+        dialog.showErrorBox(
+            'Build not found',
+            'The web bundle is missing.\n\nRun "npm run build" inside the web/ folder, then relaunch the app.'
+        );
+        return;
+    }
+
+    mainWindow.loadFile(APP_INDEX, { hash: startHashFor(auth.bootSession()) });
 }
 
 app.whenReady().then(() => {
@@ -69,8 +91,8 @@ ipcMain.handle('auth:register', (event, payload) => safe(() => {
     return res;
 }));
 
-ipcMain.handle('auth:demo-login', (event) => safe(() => {
-    const res = auth.demoLogin();
+ipcMain.handle('auth:demo-login', (event, role) => safe(() => {
+    const res = auth.demoLogin(role);
     if (res.success) senderSessions.set(event.sender.id, res.session.token);
     return res;
 }));

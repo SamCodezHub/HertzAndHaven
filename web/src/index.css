@@ -1,0 +1,219 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+/* ===========================================================================
+   Hertz & Haven — Global Design System
+   1. Tailwind v4 @theme tokens (brand palette + canvas mapping)
+   2. HeroUI semantic variable overrides
+   3. Legacy token aliases consumed by the scoped page stylesheets
+   4. Global base layer
+   =========================================================================== */
+
+/* -------------------------------------------------------------------------- */
+/* 1. Tailwind v4 @theme — the single source of truth for the palette        */
+/* -------------------------------------------------------------------------- */
+@theme {
+  /* Brand ramp — blue-grey, anchored on #96B7C8 */
+  --color-brand-50: #f4f8fa;
+  --color-brand-100: #e6eff4;
+  --color-brand-200: #cbdce6;
+  --color-brand-300: #b0cbdb;
+  --color-brand-400: #96b7c8;
+  --color-brand-500: #7aa5bd;
+  --color-brand-600: #5d7f94;
+  --color-brand-700: #405c6e;
+  --color-brand-800: #2f4756;
+  --color-brand-900: #1e2f3a;
+
+  /* Canvas mapping — surfaces, ink and hairlines */
+  --color-canvas: #e9f0f4;
+  --color-surface: #f6fafc;
+  --color-surface-2: #f2f7fa;
+  --color-ink: #243b4b;
+  --color-ink-muted: #4f6a7e;
+  --color-ink-faint: #7e99ab;
+  --color-line: #cbdce6;
+
+  /* Signal colours */
+  --color-signal-ok: #5e8b84;
+  --color-signal-warn: #b07d3c;
+  --color-signal-alert: #c0574f;
+  --color-signal-info: #7fa3b9;
+
+  /* Action tone — deeper brand shade so white label text clears WCAG AA */
+  --color-brand-action: #4a6a7d;
+  --color-brand-action-hover: #3d5a6b;
+
+  /* Deep console surfaces (schematic card + moderator workspace) */
+  --color-console-900: #10131a;
+  --color-console-800: #161b26;
+  --color-console-700: #1e2532;
+  --color-console-600: #2a3242;
+  --color-console-line: #2b3444;
+
+  /* Typography — Geist for headings, Inter for body */
+  --font-display: "Geist", "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Inter", "Geist", "Segoe UI", system-ui, sans-serif;
+
+  /* Structure */
+  --radius-app: 0.75rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. HeroUI semantic overrides — re-point the system at the brand palette    */
+/* -------------------------------------------------------------------------- */
+:root,
+.light,
+[data-theme='light'] {
+  color-scheme: light;
+
+  --background: #e9f0f4;
+  --foreground: #243b4b;
+
+  --accent: #7aa5bd;
+  --accent-foreground: #ffffff;
+
+  /* Neutral surface stays distinct from --surface so secondary buttons
+     and default chips read as raised elements on a card. */
+  --default: #e4ecf1;
+  --default-foreground: #243b4b;
+
+  --success: #5e8b84;
+  --success-foreground: #ffffff;
+
+  --warning: #b07d3c;
+  --warning-foreground: #ffffff;
+
+  --danger: #c0574f;
+  --danger-foreground: #ffffff;
+
+  /* Layout-wide structural rounding */
+  --radius: 0.75rem;
+  --field-radius: 0.625rem;
+}
+
+/* Primary actions use the deeper brand tone for label contrast. */
+.button--primary {
+  --button-bg: var(--color-brand-action);
+  --button-bg-hover: var(--color-brand-action-hover);
+  --button-bg-pressed: var(--color-brand-action-hover);
+  --button-fg: #ffffff;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. Legacy token aliases — consumed by the scoped page stylesheets          */
+/* -------------------------------------------------------------------------- */
+:root {
+  --bg: #e9f0f4;
+  --card: #f6fafc;
+  --ink: #243b4b;
+  --muted: #4f6a7e;
+  --faint: #7e99ab;
+  --line: #cbdce6;
+  --accent: #96b7c8;
+  --accent-dark: #5d7f94;
+  --accent-deep: #405c6e;
+  --green: #5e8b84;
+  --blue: #7fa3b9;
+  --red: #c0574f;
+}
+
+/* Deep "console" theme — applied to the onboarding wizard and the
+   moderator workspace via data-theme="dark". */
+[data-theme='dark'] {
+  --bg: #10131a;
+  --card: #161b26;
+  --ink: #e7edf3;
+  --muted: #93a3b5;
+  --faint: #64748b;
+  --line: #2b3444;
+  --accent: #96b7c8;
+  --accent-dark: #b0cbdb;
+  --accent-deep: #cbdce6;
+  --green: #6fcfb4;
+  --blue: #7fa3b9;
+  --red: #ff6b7d;
+
+  --background: #10131a;
+  --foreground: #e7edf3;
+  --default: #232b39;
+  --default-foreground: #e7edf3;
+  --accent: #96b7c8;
+  --accent-foreground: #0d1117;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 4. Global base layer                                                       */
+/*    These live in @layer base so Tailwind utilities (which sit in the      */
+/*    utilities layer) can still override them — unlayered rules would win   */
+/*    against every utility class.                                            */
+/* -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    background-color: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    background-color: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Headings strictly use Geist at 600/700/800 */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  /* Body copy strictly uses Inter */
+  p,
+  span,
+  div,
+  li,
+  label,
+  input,
+  select,
+  textarea,
+  button {
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: #96b7c8;
+    color: #ffffff;
+  }
+}
+
+/* Console surfaces invert the type colours */
+.pg-moderator,
+.console-surface {
+  --ink: #e7edf3;
+  --muted: #93a3b5;
+  --faint: #64748b;
+  --line: #2b3444;
+  --card: #161b26;
+  --bg: #10131a;
+  color: var(--ink);
+}
+
+.pg-moderator h1,
+.pg-moderator h2,
+.pg-moderator h3,
+.console-surface h1,
+.console-surface h2,
+.console-surface h3 {
+  color: #e7edf3;
+}

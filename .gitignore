@@ -1,7 +1,36 @@
-node_modules/
-__pycache__/
+# heroui-agents-md
+.heroui-docs/
 
-config/config.py
+# dependencies
+node_modules/
+.venv/
+venv/
+
+# builds
+dist/
+dist-ssr/
+shots/
+
+# python
+__pycache__/
+*.py[cod]
+
+# runtime / local data
 data/
-accounts.json
+device_config.json
 *.log
+preview.log
+preview.err
+
+# env & secrets
+.env
+.env.*
+config/config.py
+
+# editor / os
+.DS_Store
+.idea/
+.vscode/
+*.sw?
+*.err
+accounts.json

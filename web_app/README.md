@@ -66,8 +66,9 @@ Sign in with the one-tap **Quick Demo** button, or use:
 
 | Field | Value |
 |---|---|
-| Email | `rehan.khan@hertzandhaven.app` |
-| Password | `rehan@402` |
+| Caregiver | `Rishabh Sharma` |
+| Email | `rishabh.sharma@hertzandhaven.app` |
+| Password | `rishabh@402` |
 
 ## Run locally
 

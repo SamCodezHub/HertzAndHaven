@@ -43,7 +43,7 @@ if (!api) { console.error('electronAPI not exposed'); process.exit(1); }
 
     // Session
     let s = await api.session();
-    check('session returns user', s && s.user && s.user.name === 'Rehan Khan');
+    check('session returns user', s && s.user && s.user.name === 'Rishabh Sharma');
     check('onboarding completed', s.profile.onboarding.completed === true);
 
     // sampleSchematic

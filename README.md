@@ -10,24 +10,20 @@ The system detects falls and anomalous movements using mmWave radar sensors moun
 
 ```
 ElderlyAccidentPrevention101/
-├── user_app/                 # Caregiver / family member Electron app
-│   ├── main.js               # Electron main process, session management
+├── user_app/                 # Electron shell (loads the React UI from web/)
+│   ├── main.js               # Electron main process, dev/prod loading, IPC
 │   ├── preload.js            # Context bridge (auth, profile, onboarding)
-│   ├── auth-store.js         # Authentication, sessions, password hashing
+│   ├── auth-store.js         # Authentication, sessions, scrypt hashing
 │   ├── sample-plan.js        # Sample floor plan SVG & AI sensor placement
-│   ├── login.html            # Caregiver login / registration
-│   ├── onboarding.html       # Home setup wizard (senior info, floor plan, sensors)
-│   ├── family-dashboard.html # Family monitoring view
-│   ├── dashboard.html        # Moderator map dashboard
-│   ├── data/                 # User data store
+│   ├── data/                 # Local account/session store
 │   └── package.json
-├── moderator_app/            # Standalone moderator dispatcher Electron app
-│   ├── main.js               # Electron main process, IPC handlers
-│   ├── preload.js            # Context bridge for renderer
-│   ├── login.html            # Moderator login page
-│   ├── dashboard.html        # Map, alerts, team dispatch, transport tracking
-│   ├── data/                 # Account storage
-│   └── package.json
+├── web/                      # React 19 + Vite + Tailwind v4 + HeroUI UI
+│   ├── src/pages/            # Landing, Login, Onboarding, dashboards
+│   ├── src/components/       # family/ and moderator/ component folders
+│   ├── src/lib/              # API bridge, geo helpers, dispatch data
+│   ├── src/styles/           # Console (Leaflet/dark theme) styles
+│   └── vite.config.ts        # base './' so the build runs from file://
+├── web_app/                  # Legacy static browser build (Vercel)
 ├── pi_backend/               # Raspberry Pi Zero 2W sensor backend
 │   ├── server.py             # Sensor data collection & transmission
 │   ├── mmwave_reader.py      # mmWave radar serial parser & anomaly detection
@@ -39,13 +35,15 @@ ElderlyAccidentPrevention101/
 
 ## Components
 
-### Caregiver App (user_app)
+### Caregiver App (user_app + web)
 
-A warm, earth-toned Electron desktop application for family members and caregivers.
+The Electron shell in `user_app/` hosts the React application in `web/`. There is
+no duplicated HTML — the desktop window loads `web/dist/index.html` over
+`file://` (hash routing), or the Vite dev server during development.
 
 **Features:**
 
-- **Login & Registration** — Email/phone-based authentication with scrypt password hashing, session tokens, and remember-me support. Demo account available for quick access.
+- **Login & Registration** — Email/phone-based authentication with scrypt password hashing, session tokens, and remember-me support. One-tap demo access for both roles.
 - **Onboarding Wizard** — Multi-step home setup:
   - Senior profile (name, age, medical conditions, mobility level, language)
   - Emergency contacts and physician details
@@ -54,23 +52,24 @@ A warm, earth-toned Electron desktop application for family members and caregive
 - **Floor Plan Analysis** — Upload a floor plan image and receive AI-generated sensor placement recommendations. The system classifies zones by risk level (critical / high / medium / low) and places mmWave sensors optimally.
 - **Family Dashboard** — Monitoring view showing senior status, sensor health, hardware state (mmWave radar, smart lock), and notification preferences.
 - **Smart Lock Integration** — Rotating OTP generation for smart lock access with configurable rotation intervals.
-- **Moderator Routing** — Automatically routes moderator-role users to the map dashboard.
-- **Demo Mode** — Pre-seeded demo account with a complete 2BHK floor plan, 5 placed sensors, and populated senior profile.
+- **Role Routing** — Moderators are routed to the dispatch console at `#/dashboard`; caregivers continue to onboarding or the family dashboard.
+- **Demo Mode** — Pre-seeded demo accounts with a complete 2BHK floor plan, 5 placed sensors, and populated senior profile.
 
 **Demo Credentials:**
 
-| Field | Value |
-|---|---|
-| Email | `rehan.khan@eldercare.app` |
-| Password | `rehan@402` |
+| Role | Name | Email | Password |
+|---|---|---|---|
+| Caregiver | `Rishabh Sharma` | `rishabh.sharma@hertzandhaven.app` | `rishabh@402` |
+| Moderator | `Ops Desk` | `moderator@hertzandhaven.app` | `moderator@402` |
 
-### Moderator Dashboard (moderator_app)
+### Moderator Dashboard (in-app)
 
-A dark-themed standalone Electron desktop application for emergency dispatch operators.
+The dispatcher UI is part of the same application (`#/dashboard`), gated by role.
+The former standalone `moderator_app/` has been removed.
 
 **Features:**
 
-- **Map View** — Leaflet map centered on Bangalore with CartoDB dark tiles. Displays sensor devices, healthcare teams, hospitals, and active alerts with distinct markers and a map legend.
+- **Map View** — Leaflet map centered on Bangalore with OpenStreetMap tiles. Displays sensor devices, healthcare teams, hospitals, and active alerts with distinct markers and a map legend.
 - **Alert Management** — Trigger alerts from sensor devices. Each alert shows in a sidebar list with status badges (Active / Transport / Resolved). Alerts can be classified as false or actual threats.
 - **Device Communication** — Call the device at the alert location to confirm the situation. Send pre-filled SMS messages to the device owner.
 - **Healthcare Team Dispatch** — 8 healthcare teams patrol along real Bangalore roads (OSRM routing). The nearest available team is identified by distance. Deploy a team to an alert and track their movement in real-time.
@@ -112,19 +111,31 @@ A Python backend designed to run on a Raspberry Pi Zero 2W connected to a TI mmW
 | Detection Range | 5.0 m |
 | Update Rate | 10 Hz |
 
-## Web / Vercel version (no Electron)
+## Web / Vercel versions (no Electron)
 
-A static, browser-only build of the caregiver app lives in **`web_app/`**. It
-replaces the Electron runtime with a client-side `localStorage` + Web Crypto
-implementation (see `web_app/src/app.js`) and can be deployed for free on
-Vercel — no server needed. The UI uses the `#96B7C8` blue-gray color theme.
+Two browser builds exist:
 
-```bash
-cd web_app
-npx vercel          # deploy
-```
+- **`web/`** — the current React application (React 19 + Vite + Tailwind CSS v4 +
+  HeroUI). It runs standalone in any modern browser and is what the Electron
+  shell loads.
 
-Full details in `web_app/README.md`. Run the unit harness with
+  ```bash
+  cd web
+  npm install
+  npm run dev      # http://localhost:5173
+  npm run build    # emits dist/
+  ```
+
+- **`web_app/`** — the legacy static caregiver build with a `localStorage` +
+  Web Crypto implementation (`web_app/src/app.js`), deployable to Vercel with no
+  server. The UI uses the `#96B7C8` blue-gray color theme.
+
+  ```bash
+  cd web_app
+  npx vercel          # deploy
+  ```
+
+Full `web_app` details live in `web_app/README.md`; its unit harness runs with
 `node web_app/test/harness.js`.
 
 ## Setup
@@ -135,21 +146,34 @@ Full details in `web_app/README.md`. Run the unit harness with
 - **Python 3.8+** (for pi_backend)
 - **TI mmWave radar sensor** (optional, for real hardware)
 
-### Caregiver App
+### Desktop App (Electron + React)
 
 ```bash
-cd user_app
+# 1. build the React UI
+cd web
+npm install
+npm run build
+
+# 2. launch the desktop shell
+cd ../user_app
 npm install
 npm start
 ```
 
-### Moderator Dashboard
+### Desktop App (hot reload)
 
 ```bash
-cd moderator_app
-npm install
-npm start
+# terminal 1
+cd web && npm run dev
+
+# terminal 2
+cd user_app && npm run dev
 ```
+
+### Moderator Console
+
+No separate app — sign in as the moderator (or use *Open Moderator Console* on
+the login screen) and the app routes to `#/dashboard`.
 
 ### Pi Backend
 
@@ -176,16 +200,23 @@ Edit `pi_backend/config.py` or let it auto-generate `device_config.json` on firs
 
 ### Caregiver App
 
-User data is stored in `user_app/data/auth-db.json`. Legacy accounts from `moderator_app/data/accounts.json` are auto-migrated on first launch via the migration function in `auth-store.js`. Sessions use scrypt password hashing and crypto-based token generation.
+User data is stored in `user_app/data/auth-db.json`. Session tokens and scrypt
+password hashing are handled in `auth-store.js`; the React layer reaches them
+through the `window.electronAPI` bridge in `user_app/preload.js`. When the same
+build runs in a plain browser, `web/src/lib/api.ts` provides an equivalent
+`localStorage` + Web Crypto implementation.
 
-### Moderator Dashboard
+### Moderator Console
 
-Accounts are stored in `moderator_app/data/accounts.json`. All registered accounts have the `moderator` role.
+Moderator accounts live in the same store (`user_app/data/auth-db.json`). A demo
+moderator is seeded automatically on first launch.
 
 ## Technologies
 
-- **Electron** — Desktop application framework (both apps)
-- **Leaflet** — Interactive map with CartoDB dark tiles
+- **Electron** — Desktop shell hosting the React build
+- **React 19 + Vite** — UI runtime and build tooling
+- **Tailwind CSS v4 + HeroUI** — Design system and component primitives
+- **Leaflet** — Interactive map with OpenStreetMap tiles
 - **OSRM** — Open Source Routing Machine for real road route calculations
 - **Node.js crypto** — scrypt password hashing, session tokens, OTP generation
 - **Python** — Sensor backend

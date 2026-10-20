@@ -1,0 +1,263 @@
+/* ===========================================================================
+   Hertz & Haven — console surfaces (Leaflet markers, dark cards, dispatch)
+   These are global because Leaflet injects marker HTML outside React.
+   =========================================================================== */
+
+/* ---------- Leaflet map markers (moderator console) ---------- */
+.marker-normal,
+.marker-alert,
+.marker-team,
+.marker-team-active,
+.marker-hospital {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.marker-normal {
+  background: #7fa3b9;
+}
+
+.marker-alert {
+  background: #ff5d73;
+  animation: hh-marker-ping 1.6s ease-out infinite;
+}
+
+.marker-team {
+  background: #96b7c8;
+}
+
+.marker-team-active {
+  background: #ffb454;
+}
+
+.marker-hospital {
+  background: #ffffff;
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+
+@keyframes hh-marker-ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 93, 115, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 93, 115, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 93, 115, 0);
+  }
+}
+
+/* ---------- Tooltips ---------- */
+.mod-tooltip,
+.hp-tooltip {
+  background: #0f131a !important;
+  border: 1px solid #2b3444 !important;
+  border-radius: 8px !important;
+  color: #e7edf3 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+  padding: 6px 9px !important;
+}
+
+.mod-tooltip::before,
+.hp-tooltip::before {
+  border-top-color: #2b3444 !important;
+}
+
+.mod-tip,
+.hp-tip {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mod-tip b,
+.hp-tip b {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e7edf3;
+}
+
+.mod-tip span,
+.hp-tip span {
+  font-size: 10.5px;
+  color: rgba(231, 237, 243, 0.55);
+}
+
+/* Dispatch overlay markers */
+.hp-marker {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 2px solid #96b7c8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.team-marker {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #96b7c8;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.home-marker {
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #ff5d73;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- Map key legend dots ---------- */
+.ld-machine,
+.ld-alert,
+.ld-team,
+.ld-team-active {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+}
+
+.ld-machine {
+  background: #7fa3b9;
+}
+
+.ld-alert {
+  background: #ff5d73;
+}
+
+.ld-team {
+  background: #96b7c8;
+}
+
+.ld-team-active {
+  background: #ffb454;
+}
+
+.ld-hospital {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: #ffffff;
+  transform: rotate(45deg);
+}
+
+/* ---------- Leaflet control restyle (dark theme) ---------- */
+.leaflet-container {
+  background: #10131a;
+  font-family: 'Inter', 'Geist', system-ui, sans-serif;
+}
+
+.leaflet-control-zoom a {
+  background: #161b26 !important;
+  color: #e7edf3 !important;
+  border-color: #2b3444 !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #1e2532 !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(16, 19, 26, 0.8) !important;
+  color: rgba(231, 237, 243, 0.5) !important;
+}
+
+.leaflet-control-attribution a {
+  color: #96b7c8 !important;
+}
+
+/* ---------- Dispatch phase tracker ---------- */
+.dp-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid #2b3444;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(231, 237, 243, 0.45);
+  transition: all 0.25s;
+}
+
+.dp-step .dp-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(231, 237, 243, 0.25);
+}
+
+.dp-step.done {
+  border-color: rgba(94, 139, 132, 0.5);
+  color: #5e8b84;
+}
+
+.dp-step.done .dp-dot {
+  background: #5e8b84;
+}
+
+.dp-step.active {
+  border-color: rgba(255, 93, 115, 0.55);
+  background: rgba(255, 93, 115, 0.12);
+  color: #ff5d73;
+}
+
+.dp-step.active .dp-dot {
+  background: #ff5d73;
+  animation: hh-marker-ping 1.6s ease-out infinite;
+}
+
+/* ---------- Dispatch audit log ---------- */
+/* Tone modifiers use data attributes — a bare `.alert` class would collide
+   with HeroUI's own Alert component styles. */
+.audit-line {
+  display: flex;
+  gap: 8px;
+  color: rgba(231, 237, 243, 0.62);
+  line-height: 1.45;
+}
+
+.audit-line .audit-ts {
+  flex-shrink: 0;
+  color: rgba(231, 237, 243, 0.32);
+}
+
+.audit-line[data-tone='alert'] {
+  color: #ff5d73;
+}
+
+.audit-line[data-tone='ok'] {
+  color: #5e8b84;
+}
+
+.audit-line[data-tone='head'] {
+  color: #96b7c8;
+}
+
+/* ---------- Landing FAQ indicator ---------- */
+/* HeroUI applies `rotate: -180deg` to the indicator when expanded. Adding a
+   +135deg transform nets -45deg, turning the plus glyph into a cross. */
+.pg-landing .accordion__indicator {
+  transition: transform 200ms var(--ease-out, ease);
+}
+
+.pg-landing .accordion__indicator[data-expanded='true'] {
+  transform: rotate(135deg);
+}
+
+/* ---------- Dark schematic / console card helpers ---------- */
+.console-surface {
+  border-radius: 1rem;
+  border: 1px solid #2b3444;
+  background: #10131a;
+}

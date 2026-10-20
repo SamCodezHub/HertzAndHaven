@@ -3,7 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('electronAPI', {
     login: (payload) => ipcRenderer.invoke('auth:login', payload),
     register: (payload) => ipcRenderer.invoke('auth:register', payload),
-    demoLogin: () => ipcRenderer.invoke('auth:demo-login'),
+    demoLogin: (role) => ipcRenderer.invoke('auth:demo-login', role),
     session: () => ipcRenderer.invoke('auth:session'),
     profile: () => ipcRenderer.invoke('auth:profile'),
     updateProfile: (patch) => ipcRenderer.invoke('auth:update-profile', patch),
