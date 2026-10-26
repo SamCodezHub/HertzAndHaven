@@ -8,12 +8,6 @@ export function BrandMark({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
     md: 'size-11 rounded-[14px]',
     lg: 'size-12 rounded-[15px]',
   };
-  const logoCrop = {
-    sm: 'size-[92px] -left-[28px] -top-[18px]',
-    md: 'size-[113px] -left-[35px] -top-[22px]',
-    lg: 'size-[123px] -left-[38px] -top-[24px]',
-  };
-
   return (
     <span
       aria-hidden="true"
@@ -22,7 +16,7 @@ export function BrandMark({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
       <img
         src={`${import.meta.env.BASE_URL}new_logo_mark.jpg`}
         alt=""
-        className={`absolute max-w-none object-cover ${logoCrop[size]}`}
+        className="size-full object-cover"
       />
     </span>
   );
