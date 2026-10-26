@@ -61,7 +61,9 @@ jobs:
           cp app/android/app/build/outputs/apk/debug/app-debug.apk web_app/Hertz-Haven.apk
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add app/dist/Hertz-Haven.apk web/public/Hertz-Haven.apk web_app/Hertz-Haven.apk
+          git rm -f 'app/dist/Hertz Sense.apk' || true
+          git add -f app/dist/Hertz-Haven.apk
+          git add web/public/Hertz-Haven.apk web_app/Hertz-Haven.apk
           if git diff --cached --quiet; then
             exit 0
           fi
