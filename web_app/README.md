@@ -9,9 +9,9 @@ browser's `localStorage` (per-device, no cloud sync).
 
 ## Color scheme
 
-The UI now uses the **`#96B7C8`** blue-gray theme. The accent, gradients,
-glows and dark-theme highlights across `index`, `login`, `onboarding`,
-`family-dashboard` and `dashboard` pages have been harmonized around that hex.
+The landing and sign-in pages use a warm ivory and deep-teal palette, with
+`#087568` as the primary accent. The onboarding and dashboard screens retain
+their existing blue-gray theme.
 
 ## Structure
 

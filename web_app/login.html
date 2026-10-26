@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Hertz and Haven Company // Family Gateway</title>
+    <title>Hertz &amp; Haven — Family Gateway</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,17 +11,17 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #E9F0F4;
-            --card: #F6FAFC;
-            --ink: #243B4B;
-            --muted: #4F6a7e;
-            --faint: #7E99AB;
-            --line: #CBDCE6;
-            --accent: #96B7C8;
-            --accent-dark: #5D7F94;
-            --accent-deep: #405C6E;
-            --green: #5E8B84;
-            --red: #C0574F;
+            --bg: #F7F5EF;
+            --card: #FFFEFA;
+            --ink: #24372F;
+            --muted: #536B60;
+            --faint: #788B80;
+            --line: #DFE5DC;
+            --accent: #087568;
+            --accent-dark: #075D54;
+            --accent-deep: #174E47;
+            --green: #3E8565;
+            --red: #B8503C;
         }
 
         body {
@@ -42,8 +42,8 @@
             pointer-events: none;
         }
 
-        .g1 { top: -180px; left: -120px; width: 480px; height: 480px; background: rgba(150,183,200,0.16); }
-        .g2 { bottom: -160px; right: -100px; width: 420px; height: 420px; background: rgba(127,160,182,0.12); }
+        .g1 { top: -180px; left: -120px; width: 480px; height: 480px; background: rgba(36,133,105,0.13); }
+        .g2 { bottom: -160px; right: -100px; width: 420px; height: 420px; background: rgba(223,169,89,0.12); }
 
         .shell { width: 440px; max-width: 100%; position: relative; z-index: 1; }
 
@@ -72,7 +72,7 @@
             flex-shrink: 0;
         }
 
-        .brand-mark svg { width: 24px; height: 24px; fill: #fff; }
+        .brand-mark svg { width: 27px; height: 27px; fill: none; stroke: currentColor; }
 
         .eyebrow {
             font-size: 10px;
@@ -104,7 +104,7 @@
         .tabs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            background: #DCE8EF;
+            background: #E7EEE5;
             border-radius: 11px;
             padding: 4px;
             margin-bottom: 22px;
@@ -145,7 +145,7 @@
             width: 100%;
             padding: 12px 14px;
             border: 1px solid var(--line);
-            background: #F2F7FA;
+            background: #F8F7F1;
             border-radius: 10px;
             color: var(--ink);
             font-size: 14px;
@@ -159,7 +159,7 @@
             outline: none;
             border-color: var(--accent);
             background: #fff;
-            box-shadow: 0 0 0 3px rgba(150,183,200,0.12);
+            box-shadow: 0 0 0 3px rgba(8,117,104,0.13);
         }
 
         .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -233,7 +233,7 @@
             padding: 13px;
             border: none;
             border-radius: 11px;
-            background: linear-gradient(135deg, var(--accent), #7AA5BD);
+            background: linear-gradient(135deg, #0D8B75, var(--accent-dark));
             color: #fff;
             font-size: 14px;
             font-weight: 700;
@@ -242,7 +242,7 @@
             transition: all 0.25s;
         }
 
-        .submit:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(150,183,200,0.35); }
+        .submit:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(8,117,104,0.28); }
         .submit:disabled { opacity: 0.65; cursor: default; transform: none; box-shadow: none; }
 
         .divider {
@@ -347,12 +347,15 @@
     <div class="shell">
         <div class="brand-row">
             <a class="brand-link" href="index.html" title="Back to The Hertz and Haven Company">
-                <div class="brand-mark">
-                    <img src="logo.png" alt="Hertz and Haven logo" style="height:88px;width:auto;object-fit:contain;display:block;">
+                <div class="brand-mark" style="width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#15927D,#075D54);color:#fff;box-shadow:0 8px 18px rgba(8,117,104,.18);">
+                    <svg viewBox="0 0 48 48" aria-label="Hertz and Haven signal mark">
+                        <path d="M8 26h9l5-11 7 18 5-10h7" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M10 12a19 19 0 0 1 27-1M38 36a19 19 0 0 1-27 1" stroke-width="2.4" stroke-linecap="round" opacity=".72" />
+                    </svg>
                 </div>
                 <div>
                     <div class="eyebrow">// Family Gateway</div>
-                    <h1>The Hertz and Haven Company — Family Gateway</h1>
+                    <h1>Hertz &amp; Haven — Family Gateway</h1>
                 </div>
             </a>
         </div>

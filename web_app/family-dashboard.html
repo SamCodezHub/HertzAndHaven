@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Monitoring View // The Hertz and Haven Company — Family Gateway</title>
+    <title>Family Monitoring View — Hertz &amp; Haven</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -52,12 +52,19 @@
         .brand-row { display: flex; align-items: center; gap: 12px; }
 
         .brand-mark {
+            width: 40px;
+            height: 40px;
+            flex: 0 0 auto;
+            border-radius: 12px;
+            color: #fff;
+            background: linear-gradient(145deg, #15927D, #075D54);
+            box-shadow: 0 6px 14px rgba(8,117,104,.16);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .brand-mark svg { width: 18px; height: 18px; fill: #fff; }
+        .brand-mark svg { width: 23px; height: 23px; fill: none; stroke: currentColor; }
 
         .brand-name { font-size: 12px; font-weight: 700; line-height: 1.2; }
         .brand-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--accent); }
@@ -1677,11 +1684,14 @@
     <div class="topbar">
         <div class="brand-row">
             <div class="brand-mark">
-                <img src="logo.png" alt="Hertz and Haven logo" style="height:46px;width:auto;object-fit:contain;display:block;">
+                <svg viewBox="0 0 48 48" role="img" aria-label="Hertz and Haven signal mark">
+                    <path d="M8 26h9l5-11 7 18 5-10h7" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M10 12a19 19 0 0 1 27-1M38 36a19 19 0 0 1-27 1" stroke-width="2.4" stroke-linecap="round" opacity=".72" />
+                </svg>
             </div>
             <div>
                 <div class="brand-tag">// Family Gateway</div>
-                <div class="brand-name">The Hertz and Haven Company — Family Gateway</div>
+                <div class="brand-name">Hertz &amp; Haven — Family Dashboard</div>
             </div>
         </div>
         <div class="topbar-right">
