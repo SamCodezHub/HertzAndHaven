@@ -10,6 +10,7 @@ on:
       - app/app.js
       - app/manifest.webmanifest
       - app/new_logo_mark.jpg
+      - .github/workflows/build-android-apk.yml
 
 permissions:
   contents: write
@@ -29,6 +30,8 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
 
       - name: Install Android 35 build tools
         run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
