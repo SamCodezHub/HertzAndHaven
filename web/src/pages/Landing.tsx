@@ -383,7 +383,7 @@ export default function Landing() {
               Bring peace of mind with you.
             </h2>
             <p className="mt-4 max-w-[390px] text-[14px] leading-relaxed text-white/75">
-              Choose a platform below. App store listings and a signed Android package will be linked as soon as they are published.
+              Download the Android app directly, or check the app stores for current availability.
             </p>
           </div>
           <div className="relative z-10 grid gap-3 sm:grid-cols-2">
@@ -395,12 +395,12 @@ export default function Landing() {
               <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="currentColor" aria-hidden="true"><path d="M3.2 2.8c-.14.22-.2.5-.2.83v16.74c0 .34.07.62.2.84L12.56 12 3.2 2.8Zm10.4 7.18L5.36 1.67l11.47 6.52-3.23 1.79Zm4.48 2.48-3.02-1.68 3.32-1.84 2.08 1.18c.72.41.72 1.05 0 1.46l-2.38.88ZM5.36 22.33l8.24-8.31 3.23 1.79L5.36 22.33Zm7.2-10.33 4.27 2.37-11.47 6.52 7.2-8.89Z"/></svg>
               <span><small className="block text-[10px] text-ink-muted">For Android phones</small><strong className="mt-1 block text-[14px]">Check Google Play availability</strong></span>
             </a>
-            <button type="button" disabled aria-describedby="download-note" className="flex min-h-[78px] cursor-not-allowed items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-left text-ink opacity-75">
+            <a href="/Hertz-Haven.apk" download="Hertz-Haven.apk" aria-describedby="download-note" className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-left text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
-              <span><small className="block text-[10px] text-ink-muted">Android package</small><strong className="mt-1 block text-[14px]">Direct APK · Coming soon</strong></span>
-            </button>
+              <span><small className="block text-[10px] text-ink-muted">Android package</small><strong className="mt-1 block text-[14px]">Download Android APK</strong></span>
+            </a>
             <p id="download-note" className="text-[11px] leading-relaxed text-white/65 sm:col-span-2">
-              Online demo access is disabled. The store buttons open searches; official listings and a signed APK are not published yet.
+              The APK downloads directly to your Android phone. App Store and Google Play buttons open availability searches.
             </p>
           </div>
         </div>

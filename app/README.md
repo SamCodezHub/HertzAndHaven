@@ -80,7 +80,7 @@ The responsive web app is in this folder. Host those files over HTTPS (for examp
 
 ## Download or rebuild the Android APK
 
-The original APK is `dist/Hertz Sense.apk`; it was built before the Hertz & Haven logo and green theme were added. The Android source now contains the updated brand assets. Rebuild the APK using the Android Studio steps below to package those updates. The web dashboard has a direct download link to the APK in `dist/` when you publish this folder.
+The updated APK is `dist/Hertz-Haven.apk`. It includes the Hertz & Haven logo and green theme. It is debug-signed for direct installation; updating an older copy signed with a different debug key may require uninstalling that copy first. Save your account ID and password before reinstalling. The live website also offers this APK directly from its download section.
 
 The Android Studio project is in `android/`. Open that folder in Android Studio with Android SDK 35 and JDK 17 available, then choose **Build > Build Bundle(s) / APK(s) > Build APK(s)**. Android Studio places its APK at:
 
