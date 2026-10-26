@@ -1,5 +1,4 @@
 import { Accordion, Button } from '@heroui/react';
-import { useNavigate } from 'react-router-dom';
 import { BrandMark, CountUp, IconTile, SectionHeading, StatCard } from '../components/primitives';
 import {
   AlertIcon,
@@ -150,7 +149,7 @@ function HomeSafetyIllustration() {
 }
 
 export default function Landing() {
-  const navigate = useNavigate();
+  const scrollToDownloads = () => document.getElementById('download')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <div className="pg-landing relative min-h-screen overflow-x-hidden bg-canvas">
@@ -180,16 +179,13 @@ export default function Landing() {
               {label}
             </a>
           ))}
-          <Button size="sm" variant="secondary" onPress={() => navigate('/login')}>
-            Sign In
-          </Button>
-          <Button size="sm" variant="primary" onPress={() => navigate('/login?mode=signup')}>
-            Create Account
+          <Button size="sm" variant="primary" onPress={scrollToDownloads}>
+            Download App
           </Button>
         </div>
         <div className="lg:hidden">
-          <Button size="sm" variant="primary" onPress={() => navigate('/login?mode=signup')}>
-            Create Account
+          <Button size="sm" variant="primary" onPress={scrollToDownloads}>
+            Download App
           </Button>
         </div>
       </nav>
@@ -208,8 +204,8 @@ export default function Landing() {
             Discreet 24GHz radar sensors help monitor your parents at home. When a fall is detected, Hertz &amp; Haven helps share an alert with family and coordinate a faster response — without cameras or wearables.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3.5">
-            <Button size="lg" variant="primary" onPress={() => navigate('/login?mode=signup')}>
-              Create Free Account
+            <Button size="lg" variant="primary" onPress={scrollToDownloads}>
+              Download the App
             </Button>
             <Button
               size="lg"
@@ -380,28 +376,24 @@ export default function Landing() {
               Bring peace of mind with you.
             </h2>
             <p className="mt-4 max-w-[390px] text-[14px] leading-relaxed text-white/75">
-              Open the family dashboard on the web today. Native app listings and a direct Android package can be added here when they are published.
+              Choose a platform below. App store listings and a signed Android package will be linked as soon as they are published.
             </p>
           </div>
           <div className="relative z-10 grid gap-3 sm:grid-cols-2">
             <a className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" href="https://apps.apple.com/in/search?term=Hertz%20%26%20Haven" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="currentColor" aria-hidden="true"><path d="M16.37 12.06c.02 2.2 1.93 2.93 1.95 2.94-.02.05-.3 1.04-.99 2.06-.6.88-1.22 1.75-2.2 1.77-.96.02-1.27-.57-2.37-.57-1.1 0-1.45.55-2.36.59-.95.04-1.67-.95-2.27-1.82-1.23-1.78-2.17-5.04-.91-7.24.62-1.09 1.73-1.78 2.94-1.8.92-.02 1.79.62 2.36.62.57 0 1.64-.77 2.77-.66.47.02 1.8.19 2.65 1.42-.07.04-1.58.92-1.57 2.69ZM14.55 6.6c.5-.6.84-1.42.75-2.24-.72.03-1.59.48-2.11 1.08-.46.53-.86 1.36-.75 2.16.8.06 1.61-.4 2.11-1Z"/></svg>
-              <span><small className="block text-[10px] text-ink-muted">For iPhone and iPad</small><strong className="mt-1 block text-[14px]">Search the App Store</strong></span>
+              <span><small className="block text-[10px] text-ink-muted">For iPhone and iPad</small><strong className="mt-1 block text-[14px]">Check App Store availability</strong></span>
             </a>
             <a className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" href="https://play.google.com/store/search?q=Hertz%20%26%20Haven&amp;c=apps" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="currentColor" aria-hidden="true"><path d="M3.2 2.8c-.14.22-.2.5-.2.83v16.74c0 .34.07.62.2.84L12.56 12 3.2 2.8Zm10.4 7.18L5.36 1.67l11.47 6.52-3.23 1.79Zm4.48 2.48-3.02-1.68 3.32-1.84 2.08 1.18c.72.41.72 1.05 0 1.46l-2.38.88ZM5.36 22.33l8.24-8.31 3.23 1.79L5.36 22.33Zm7.2-10.33 4.27 2.37-11.47 6.52 7.2-8.89Z"/></svg>
-              <span><small className="block text-[10px] text-ink-muted">For Android phones</small><strong className="mt-1 block text-[14px]">Search Google Play</strong></span>
+              <span><small className="block text-[10px] text-ink-muted">For Android phones</small><strong className="mt-1 block text-[14px]">Check Google Play availability</strong></span>
             </a>
             <button type="button" disabled aria-describedby="download-note" className="flex min-h-[78px] cursor-not-allowed items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-left text-ink opacity-75">
               <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
               <span><small className="block text-[10px] text-ink-muted">Android package</small><strong className="mt-1 block text-[14px]">Direct APK · Coming soon</strong></span>
             </button>
-            <a className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" href="/login?mode=signup">
-              <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
-              <span><small className="block text-[10px] text-ink-muted">Works in your browser</small><strong className="mt-1 block text-[14px]">Open the Web App</strong></span>
-            </a>
             <p id="download-note" className="text-[11px] leading-relaxed text-white/65 sm:col-span-2">
-              The store buttons open searches for Hertz &amp; Haven. Store listings and a signed APK are not published in this project yet.
+              Online demo access is disabled. The store buttons open searches; official listings and a signed APK are not published yet.
             </p>
           </div>
         </div>
@@ -420,13 +412,6 @@ export default function Landing() {
           <a href="#download" className="text-ink-muted transition-colors hover:text-brand-500">
             Download App
           </a>
-          <button
-            type="button"
-            onClick={() => navigate('/login')}
-            className="text-ink-muted transition-colors hover:text-brand-500"
-          >
-            Sign In
-          </button>
         </div>
       </footer>
     </div>

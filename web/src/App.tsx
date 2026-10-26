@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Navigate, Routes, Route } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
 import RouteFallback from './components/RouteFallback';
 
@@ -27,12 +27,18 @@ function App() {
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/landing" element={<Landing />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/family-dashboard" element={<FamilyDashboard />} />
-            <Route path="/dashboard" element={<ModeratorDashboard />} />
-            <Route path="*" element={<NotFound />} />
+            {isDesktop ? (
+              <>
+                <Route path="/landing" element={<Landing />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/onboarding" element={<Onboarding />} />
+                <Route path="/family-dashboard" element={<FamilyDashboard />} />
+                <Route path="/dashboard" element={<ModeratorDashboard />} />
+                <Route path="*" element={<NotFound />} />
+              </>
+            ) : (
+              <Route path="*" element={<Navigate to="/#download" replace />} />
+            )}
           </Routes>
         </Suspense>
       </Router>
