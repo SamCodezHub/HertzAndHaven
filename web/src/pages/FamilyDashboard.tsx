@@ -25,7 +25,7 @@ import {
 import { PastIncidentsCard } from '../components/family/PastIncidentsCard';
 import DispatchOverlay from '../components/family/DispatchOverlay';
 import IncidentReportModal from '../components/family/IncidentReportModal';
-import { Pill } from '../components/primitives';
+import { BrandMark, Pill } from '../components/primitives';
 
 const INCIDENT_LOG_KEY = 'eap_incident_log';
 
@@ -472,11 +472,11 @@ export default function FamilyDashboard() {
       {/* Topbar */}
       <header className="sticky top-0 z-30 flex h-[58px] items-center justify-between gap-4 border-b border-line bg-surface/90 px-5 backdrop-blur-md">
         <div className="flex min-w-0 items-center gap-3">
-            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Hertz and Haven logo" className="h-9 w-auto object-contain" />
+            <BrandMark size="sm" />
           <div className="min-w-0">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ink-faint">// Family Gateway</p>
             <p className="truncate font-display text-[13.5px] font-bold text-ink">
-              The Hertz and Haven Company — Family Gateway
+              Hertz &amp; Haven — Family Gateway
             </p>
           </div>
         </div>

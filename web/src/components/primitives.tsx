@@ -1,4 +1,73 @@
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
+
+/** Minimal signal mark used consistently across marketing and account screens. */
+export function BrandMark({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
+  const sizes = {
+    sm: 'size-9 rounded-[11px]',
+    md: 'size-11 rounded-[14px]',
+    lg: 'size-12 rounded-[15px]',
+  };
+
+  return (
+    <span
+      aria-hidden="true"
+      className={`grid shrink-0 place-items-center bg-gradient-to-br from-[#15927d] to-[#075d54] text-white shadow-[0_8px_18px_rgba(8,117,104,0.18)] ${sizes[size]}`}
+    >
+      <svg viewBox="0 0 48 48" className="size-[58%]" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 26h9l5-11 7 18 5-10h7" strokeWidth="3.2" />
+        <path d="M10 12a19 19 0 0 1 27-1M38 36a19 19 0 0 1-27 1" strokeWidth="2.4" opacity=".72" />
+      </svg>
+    </span>
+  );
+}
+
+/** Count a compact value up once when its metric becomes visible. */
+export function CountUp({ value, className = '' }: { value: string; className?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [display, setDisplay] = useState(value);
+
+  useEffect(() => {
+    const match = value.match(/^([^\d]*)(\d+)(.*)$/);
+    const element = ref.current;
+    if (!match || !element) return;
+
+    const [, prefix, digits, suffix] = match;
+    const target = Number(digits);
+    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (target === 0 || reducedMotion || !('IntersectionObserver' in window)) {
+      setDisplay(value);
+      return;
+    }
+
+    let animationFrame = 0;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      const startedAt = performance.now();
+      const duration = 760;
+      setDisplay(`${prefix}0${suffix}`);
+
+      const frame = (now: number) => {
+        const progress = Math.min((now - startedAt) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setDisplay(`${prefix}${Math.round(target * eased)}${suffix}`);
+        if (progress < 1) animationFrame = requestAnimationFrame(frame);
+        else setDisplay(value);
+      };
+
+      animationFrame = requestAnimationFrame(frame);
+    }, { threshold: 0.35 });
+
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(animationFrame);
+    };
+  }, [value]);
+
+  return <span ref={ref} className={className} aria-label={value} aria-live="off">{display}</span>;
+}
 
 /** Section eyebrow + heading + optional lede, used across marketing surfaces. */
 export function SectionHeading({
@@ -28,7 +97,7 @@ export function SectionHeading({
 export function StatCard({ value, label }: { value: string; label: string }) {
   return (
     <div className="rounded-2xl border border-line bg-surface px-6 py-9 text-center transition-shadow hover:shadow-[0_12px_36px_rgba(40,53,74,0.10)]">
-      <div className="font-display text-[40px] font-bold leading-none text-brand-600">{value}</div>
+      <div className="font-display text-[40px] font-bold leading-none text-brand-600"><CountUp value={value} /></div>
       <div className="mt-2 text-[13px] leading-relaxed text-muted">{label}</div>
     </div>
   );

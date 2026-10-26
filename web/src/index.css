@@ -13,36 +13,36 @@
 /* 1. Tailwind v4 @theme — the single source of truth for the palette        */
 /* -------------------------------------------------------------------------- */
 @theme {
-  /* Brand ramp — blue-grey, anchored on #96B7C8 */
-  --color-brand-50: #f4f8fa;
-  --color-brand-100: #e6eff4;
-  --color-brand-200: #cbdce6;
-  --color-brand-300: #b0cbdb;
-  --color-brand-400: #96b7c8;
-  --color-brand-500: #7aa5bd;
-  --color-brand-600: #5d7f94;
-  --color-brand-700: #405c6e;
-  --color-brand-800: #2f4756;
-  --color-brand-900: #1e2f3a;
+  /* Brand ramp — warm, welcoming teal */
+  --color-brand-50: #eff8f2;
+  --color-brand-100: #dcefe5;
+  --color-brand-200: #c0e2d1;
+  --color-brand-300: #8ecbb1;
+  --color-brand-400: #42a98b;
+  --color-brand-500: #087568;
+  --color-brand-600: #075d54;
+  --color-brand-700: #064b44;
+  --color-brand-800: #174e47;
+  --color-brand-900: #123b37;
 
   /* Canvas mapping — surfaces, ink and hairlines */
-  --color-canvas: #e9f0f4;
-  --color-surface: #f6fafc;
-  --color-surface-2: #f2f7fa;
-  --color-ink: #243b4b;
-  --color-ink-muted: #4f6a7e;
-  --color-ink-faint: #7e99ab;
-  --color-line: #cbdce6;
+  --color-canvas: #f7f5ef;
+  --color-surface: #fffefa;
+  --color-surface-2: #f8f7f1;
+  --color-ink: #24372f;
+  --color-ink-muted: #536b60;
+  --color-ink-faint: #788b80;
+  --color-line: #dfe5dc;
 
   /* Signal colours */
-  --color-signal-ok: #5e8b84;
-  --color-signal-warn: #b07d3c;
-  --color-signal-alert: #c0574f;
-  --color-signal-info: #7fa3b9;
+  --color-signal-ok: #3e8565;
+  --color-signal-warn: #9f671e;
+  --color-signal-alert: #b8503c;
+  --color-signal-info: #4e83a6;
 
   /* Action tone — deeper brand shade so white label text clears WCAG AA */
-  --color-brand-action: #4a6a7d;
-  --color-brand-action-hover: #3d5a6b;
+  --color-brand-action: #075d54;
+  --color-brand-action-hover: #064b44;
 
   /* Deep console surfaces (schematic card + moderator workspace) */
   --color-console-900: #10131a;
@@ -67,24 +67,24 @@
 [data-theme='light'] {
   color-scheme: light;
 
-  --background: #e9f0f4;
-  --foreground: #243b4b;
+  --background: #f7f5ef;
+  --foreground: #24372f;
 
-  --accent: #7aa5bd;
+  --accent: #087568;
   --accent-foreground: #ffffff;
 
   /* Neutral surface stays distinct from --surface so secondary buttons
      and default chips read as raised elements on a card. */
-  --default: #e4ecf1;
-  --default-foreground: #243b4b;
+  --default: #e9eee6;
+  --default-foreground: #24372f;
 
-  --success: #5e8b84;
+  --success: #3e8565;
   --success-foreground: #ffffff;
 
-  --warning: #b07d3c;
+  --warning: #9f671e;
   --warning-foreground: #ffffff;
 
-  --danger: #c0574f;
+  --danger: #b8503c;
   --danger-foreground: #ffffff;
 
   /* Layout-wide structural rounding */
@@ -104,18 +104,18 @@
 /* 3. Legacy token aliases — consumed by the scoped page stylesheets          */
 /* -------------------------------------------------------------------------- */
 :root {
-  --bg: #e9f0f4;
-  --card: #f6fafc;
-  --ink: #243b4b;
-  --muted: #4f6a7e;
-  --faint: #7e99ab;
-  --line: #cbdce6;
-  --accent: #96b7c8;
-  --accent-dark: #5d7f94;
-  --accent-deep: #405c6e;
-  --green: #5e8b84;
-  --blue: #7fa3b9;
-  --red: #c0574f;
+  --bg: #f7f5ef;
+  --card: #fffefa;
+  --ink: #24372f;
+  --muted: #536b60;
+  --faint: #788b80;
+  --line: #dfe5dc;
+  --accent: #087568;
+  --accent-dark: #075d54;
+  --accent-deep: #174e47;
+  --green: #3e8565;
+  --blue: #4e83a6;
+  --red: #b8503c;
 }
 
 /* Deep "console" theme — applied to the onboarding wizard and the
@@ -192,7 +192,7 @@
   }
 
   ::selection {
-    background: #96b7c8;
+    background: #087568;
     color: #ffffff;
   }
 }

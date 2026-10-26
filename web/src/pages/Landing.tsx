@@ -1,6 +1,6 @@
 import { Accordion, Button } from '@heroui/react';
 import { useNavigate } from 'react-router-dom';
-import { IconTile, SectionHeading, StatCard } from '../components/primitives';
+import { BrandMark, CountUp, IconTile, SectionHeading, StatCard } from '../components/primitives';
 import {
   AlertIcon,
   CheckCircleIcon,
@@ -8,8 +8,6 @@ import {
   LockIcon,
   MessageIcon,
   PlusIcon,
-  ShieldIcon,
-  SparkIcon,
   TagIcon,
   TrendIcon,
 } from '../components/icons';
@@ -17,27 +15,27 @@ import {
 const FAQS = [
   {
     q: 'How does fall detection work without cameras?',
-    a: 'The Hertz and Haven Company uses 24GHz FMCW mmWave radar — the same technology in self-driving cars. It sends invisible radio waves that bounce off objects and people. The AI analyzes the reflected signals to detect sudden changes in movement patterns that indicate a fall. It works through walls, in total darkness, and does not capture any visual images — preserving complete privacy.',
+    a: 'The system uses 24GHz FMCW mmWave radar. It reads changes in reflected radio waves to identify movement patterns associated with a fall, without capturing images or video.',
   },
   {
     q: 'Does my parent need to wear anything?',
-    a: 'No. The radar sensors are mounted on walls and are completely invisible. Your parent does not need to wear any device, press any button, or change any habit. The system works passively in the background — true set-and-forget protection.',
+    a: 'No. The radar sensors are mounted in the home, so your parent does not need to wear a device, press a button, or change their routine.',
   },
   {
     q: "Is my family's data safe?",
-    a: 'All data — including passwords, session tokens, health information, and floor plans — is stored securely in your browser’s local storage. Passwords are salted and hashed before storage, and session tokens are rotated on sign-in. Nothing is sent to external servers. You have complete ownership and control of your data.',
+    a: 'The web app keeps account and profile data in this browser’s local storage and stores passwords as salted hashes. Use a device you trust, especially when adding family or health details.',
   },
   {
     q: 'What happens when a fall is detected?',
-    a: 'The system triggers a multi-step emergency response: (1) Family caregivers receive push notifications immediately, (2) SMS and automated voice calls ensure reachability, (3) You can confirm or dismiss the alert from the dashboard, (4) If confirmed, healthcare teams are deployed with live GPS tracking to the patient’s location.',
+    a: 'A possible fall can be reviewed from the family dashboard. Keep emergency contacts up to date, and choose the alert preferences that work for your family.',
   },
   {
-    q: 'How is the floor plan analysis done?',
-    a: 'Upload a photo, sketch, or digital floor plan of your parent’s home. Our AI spatial analysis engine scans the layout, identifies high-risk fall zones (bathrooms, staircases, kitchen), and recommends optimal positions for up to 12 radar sensors. The analysis takes under 10 seconds and includes confidence scores for each placement.',
+    q: 'How do I add a floor plan?',
+    a: 'During setup, upload a photo, sketch, or digital floor plan of your parent’s home. The app then shows suggested sensor locations for you to review.',
   },
   {
-    q: 'What does "Family Gateway" mean?',
-    a: 'Family Gateway is the caregiver-facing dashboard of The Hertz and Haven Company. It’s your single command centre — view sensor status, monitor room activity, manage emergency contacts, control smart lock OTPs, track deployed healthcare teams, and receive alerts. It works on any browser, from anywhere in the world.',
+    q: 'What is the Hertz & Haven dashboard?',
+    a: 'It is the family view for room and sensor status, emergency contacts, smart-lock OTP settings, and alert preferences. You can access it from the web app on a supported browser.',
   },
 ];
 
@@ -45,8 +43,8 @@ const SCENARIOS = [
   {
     tone: 'alert' as const,
     icon: <AlertIcon className="size-4" />,
-    title: 'The Silent Fall Crisis',
-    body: 'A senior slips in the bathroom at 2 AM. Without monitoring, no one knows until a family member calls hours later. By then, hypothermia and complications set in.',
+    title: 'A Fall at Home',
+    body: 'A senior slips at home late at night. Without monitoring, family may not know until much later. A delay can make injuries harder to treat and prolong the emergency before help arrives.',
   },
   {
     tone: 'warn' as const,
@@ -63,49 +61,30 @@ const SCENARIOS = [
 ];
 
 const STEPS = [
-  { n: 1, title: 'Create Account', body: 'Sign up as a family caregiver. Add your parent’s name, health conditions, and emergency contacts in a simple form.' },
-  { n: 2, title: 'Upload Floor Plan', body: 'Take a photo of your parent’s home layout — even a hand-drawn sketch works. Our AI uses it to understand the space.' },
-  { n: 3, title: 'AI Places Sensors', body: 'Our spatial analysis engine scans the floor plan, identifies high-risk fall zones (bathrooms, staircases), and recommends exact sensor placements.' },
-  { n: 4, title: 'Monitor & Protect', body: 'Mount the sensors on walls. They instantly begin monitoring. Falls, intrusions, and anomalies are detected and alerted in real-time.' },
+  { n: 1, title: 'Create Account', body: 'Set up a family account so the people who help care for your parent can stay connected.' },
+  { n: 2, title: 'Add Home Details', body: 'Add your parent’s profile, home address, and primary emergency contact during a guided setup.' },
+  { n: 3, title: 'Review Sensor Setup', body: 'Upload a floor plan and review suggested sensor locations for the rooms you want to monitor.' },
+  { n: 4, title: 'Stay Connected', body: 'Use the family dashboard to check room status, manage smart-lock OTP settings, and choose how alerts reach your family.' },
 ];
 
 const FEATURES = [
   {
-    tone: 'alert' as const,
-    icon: <AlertIcon className="size-5" />,
-    title: 'Instant Fall Detection',
-    body: 'Our radar sensors detect falls in under 3 seconds. The technology works through walls, in complete darkness, and through smoke — unlike cameras or infrared sensors. When a fall is detected, the system immediately begins the emergency response chain.',
-    wide: true,
-  },
-  {
-    tone: 'ok' as const,
-    icon: <ShieldIcon className="size-5" />,
-    title: 'Emergency Response Chain',
-    body: 'Alerts cascade to family members, neighbours, and healthcare teams simultaneously. Track ambulance deployment, hospital ETA, and team location in real-time on a live map.',
-  },
-  {
     tone: 'info' as const,
     icon: <TrendIcon className="size-5" />,
     title: 'Family Dashboard',
-    body: 'A real-time command centre showing sensor status, room activity, emergency contacts, and OTP-secured smart lock controls — all from your phone or laptop, anywhere in the world.',
-  },
-  {
-    tone: 'accent' as const,
-    icon: <SparkIcon className="size-5" />,
-    title: 'AI Spatial Analysis',
-    body: 'Upload any floor plan — photo, sketch, or blueprint — and our AI identifies fall-risk zones, optimal sensor positions, and coverage gaps. It learns from thousands of elderly home layouts.',
+    body: 'See room and sensor status, keep emergency contacts close, and review your home’s safety setup from one simple view.',
   },
   {
     tone: 'ok' as const,
     icon: <LockIcon className="size-5" />,
-    title: 'Smart Lock OTP',
-    body: 'Rotating one-time passwords for door access. Caregivers, nurses, and emergency responders get time-limited codes — no spare keys needed, no security risk.',
+    title: 'Smart-Lock OTP',
+    body: 'Manage rotating, time-limited access codes for the smart lock, with clear controls in the family dashboard.',
   },
   {
     tone: 'info' as const,
     icon: <MessageIcon className="size-5" />,
-    title: 'Multi-Channel Alerts',
-    body: 'Push notifications, SMS fallback, and automated voice calls ensure alerts reach someone — even if the family member’s phone is on silent or out of battery.',
+    title: 'Multichannel Alerts',
+    body: 'Choose push, SMS fallback, and voice-call preferences so your family has more than one way to receive an important update.',
   },
 ];
 
@@ -115,6 +94,60 @@ const NUMBERS = [
   { value: '0', label: 'Cameras, wearables, or monthly subscription fees' },
   { value: '140M+', label: 'Aging population in India to protect' },
 ];
+
+function HomeSafetyIllustration() {
+  return (
+    <div className="relative mx-auto w-full max-w-[620px]">
+      <svg viewBox="0 0 620 520" className="block h-auto w-full drop-shadow-[0_24px_34px_rgba(45,74,58,0.13)]" role="img" aria-labelledby="homeSafetyTitle">
+        <title id="homeSafetyTitle">A warm family home with a discreet safety sensor and connected room status</title>
+        <defs>
+          <linearGradient id="sceneBg" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#E3F0E5"/><stop offset="1" stopColor="#F8EBD6"/></linearGradient>
+          <linearGradient id="windowBg" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#B9D9CF"/><stop offset="1" stopColor="#F0D59E"/></linearGradient>
+          <linearGradient id="sofaBg" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#719B83"/><stop offset="1" stopColor="#467766"/></linearGradient>
+        </defs>
+        <rect x="18" y="17" width="584" height="482" rx="40" fill="url(#sceneBg)"/>
+        <circle cx="518" cy="91" r="39" fill="#EABF78" opacity=".82"/>
+        <path d="M70 211 308 51l238 160" fill="none" stroke="#FFFDF7" strokeWidth="17" strokeLinecap="round" strokeLinejoin="round"/>
+        <rect x="93" y="204" width="430" height="239" rx="24" fill="#FFFCF4"/>
+        <path d="M93 408h430v12a24 24 0 0 1-24 24H117a24 24 0 0 1-24-24z" fill="#E9D8BC"/>
+        <rect x="135" y="243" width="125" height="117" rx="9" fill="url(#windowBg)"/>
+        <path d="M197 243v117M135 301h125" stroke="#FFFDF7" strokeWidth="8"/>
+        <path d="M146 336c16-21 28-17 43-5 15-24 31-28 59-10v39h-102z" fill="#8BAE8A" opacity=".72"/>
+        <rect x="289" y="300" width="183" height="89" rx="23" fill="url(#sofaBg)"/>
+        <rect x="276" y="350" width="208" height="48" rx="18" fill="#5D8A74"/>
+        <rect x="290" y="377" width="22" height="49" rx="10" fill="#476C5E"/>
+        <rect x="449" y="377" width="22" height="49" rx="10" fill="#476C5E"/>
+        <rect x="302" y="314" width="54" height="41" rx="13" fill="#E7B27E"/>
+        <rect x="400" y="314" width="54" height="41" rx="13" fill="#D4E1C8"/>
+        <ellipse cx="380" cy="435" rx="139" ry="13" fill="#D8C6A9" opacity=".62"/>
+        <circle cx="374" cy="267" r="27" fill="#C9835F"/>
+        <path d="M348 264c2-24 16-35 33-31 13 3 21 14 19 28-8-7-16-10-26-10-7 8-15 12-26 13z" fill="#4F5349"/>
+        <path d="M340 299c18-17 46-18 66 0l17 69h-103z" fill="#E7B27E"/>
+        <path d="M345 308c17-14 41-14 57 0l8 60h-73z" fill="#2F7669"/>
+        <path d="M354 367h30l-8 49h-39zM384 367h28l18 49h-39z" fill="#465B54"/>
+        <path d="M337 320c-16 13-24 29-25 47M407 318c15 11 22 25 25 39" fill="none" stroke="#C9835F" strokeWidth="11" strokeLinecap="round"/>
+        <circle cx="494" cy="224" r="9" fill="#0B806F"/>
+        <circle cx="494" cy="224" r="28" fill="none" stroke="#0B806F" strokeOpacity=".42" strokeWidth="2"/>
+        <circle cx="494" cy="224" r="48" fill="none" stroke="#0B806F" strokeOpacity=".2" strokeWidth="2" strokeDasharray="5 7"/>
+        <path d="M494 272v20" stroke="#0B806F" strokeWidth="2" strokeDasharray="4 5"/>
+        <path d="M517 381h35v58h-35z" fill="#B97853"/>
+        <path d="M534 386c-30-14-25-42-8-50 19 11 21 28 8 50zM536 392c5-29 24-38 36-28-2 21-15 31-36 28zM531 400c-25-18-45-9-43 7 17 11 31 8 43-7z" fill="#5F9870"/>
+        <rect x="75" y="97" width="177" height="72" rx="17" fill="#FFFEFA" stroke="#FFFFFF" strokeWidth="2"/>
+        <circle cx="101" cy="121" r="6" fill="#3E9A70"/>
+        <text x="117" y="125" fill="#536B60" fontSize="11" fontFamily="Arial, sans-serif" fontWeight="700" letterSpacing="1">HOME STATUS</text>
+        <text x="96" y="151" fill="#24372F" fontSize="15" fontFamily="Arial, sans-serif" fontWeight="700">All rooms connected</text>
+        <circle cx="513" cy="128" r="4" fill="#FFFDF7" opacity=".8"/>
+        <circle cx="550" cy="167" r="3" fill="#FFFDF7" opacity=".8"/>
+      </svg>
+      <div className="absolute bottom-3 left-0 flex items-center gap-3 rounded-2xl border border-white/80 bg-surface/95 px-4 py-3 shadow-[0_14px_38px_rgba(36,55,47,0.15)] backdrop-blur-md sm:bottom-7 sm:-left-4">
+        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-100 text-brand-700" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h4l2.4-5 4.2 10 2.3-5H21"/><path d="M12 22s8-4.5 8-12V5l-8-3-8 3v5c0 7.5 8 12 8 12z"/></svg>
+        </span>
+        <span><strong className="block text-[12px] font-bold text-ink">Thoughtful, everyday protection</strong><span className="mt-0.5 block text-[11px] text-ink-muted">Privacy first. Family connected.</span></span>
+      </div>
+    </div>
+  );
+}
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -126,19 +159,18 @@ export default function Landing() {
       <div className="pointer-events-none fixed -bottom-44 -right-28 size-[440px] rounded-full bg-brand-400/15 blur-[160px]" />
 
       {/* Nav */}
-      <nav className="sticky top-0 z-50 flex h-[62px] items-center justify-between border-b border-line bg-canvas/85 px-6 backdrop-blur-md md:px-12">
-        <div className="flex items-center gap-3">
-          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Hertz and Haven logo" className="h-11 w-auto object-contain" />
-          <span className="hidden font-display text-[15px] font-bold text-ink sm:inline">
-            The Hertz and Haven Company
-          </span>
-        </div>
-        <div className="flex items-center gap-5 md:gap-8">
+      <nav className="sticky top-0 z-50 flex h-[78px] items-center justify-between border-b border-ink/10 bg-canvas/90 px-4 backdrop-blur-md sm:px-6 lg:px-12">
+        <a href="/" className="flex items-center gap-3" aria-label="Hertz and Haven home">
+          <BrandMark />
+          <span className="font-display text-[15px] font-bold tracking-[-0.03em] text-ink sm:text-[17px]">Hertz &amp; Haven</span>
+        </a>
+        <div className="hidden items-center gap-5 lg:flex xl:gap-7">
           {[
             ['The Problem', '#problem'],
             ['How It Works', '#how'],
             ['Features', '#features'],
             ['FAQ', '#faq'],
+            ['Download', '#download'],
           ].map(([label, href]) => (
             <a
               key={href}
@@ -148,49 +180,54 @@ export default function Landing() {
               {label}
             </a>
           ))}
-          <Button size="sm" variant="primary" onPress={() => navigate('/login')}>
+          <Button size="sm" variant="secondary" onPress={() => navigate('/login')}>
             Sign In
+          </Button>
+          <Button size="sm" variant="primary" onPress={() => navigate('/login?mode=signup')}>
+            Create Account
+          </Button>
+        </div>
+        <div className="lg:hidden">
+          <Button size="sm" variant="primary" onPress={() => navigate('/login?mode=signup')}>
+            Create Account
           </Button>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="relative z-10 mx-auto max-w-[1060px] px-6 pb-20 pt-28 text-center md:pt-36">
-        <p className="mb-6 inline-block rounded-full border border-brand-200 bg-brand-100/50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-600">
-          Sensing danger, delivering Haven
-        </p>
-        <h1 className="font-display text-[34px] font-extrabold leading-[1.12] text-ink md:text-[52px]">
-          Your parents deserve <span className="text-brand-500">safety</span> that never{' '}
-          <span className="text-brand-500">sleeps</span>
-        </h1>
-        <p className="mx-auto mt-5 max-w-[640px] text-[15px] leading-relaxed text-ink-muted md:text-[18px]">
-          Invisible 24GHz radar sensors watch over your parents around the clock. When a fall happens, our AI
-          detects it in under 3 seconds and sends alerts to you and emergency responders — automatically.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-          <Button size="lg" variant="primary" onPress={() => navigate('/login')}>
-            Create Free Account
-          </Button>
-          <Button
-            size="lg"
-            variant="secondary"
-            onPress={() => document.getElementById('how')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            See How It Works
-          </Button>
+      <section className="relative z-10 mx-auto grid max-w-[1240px] items-center gap-10 px-5 pb-16 pt-20 sm:px-8 md:pb-20 md:pt-24 lg:grid-cols-[0.96fr_1.04fr] lg:gap-14 lg:px-12 lg:pb-24 lg:pt-28">
+        <div>
+          <p className="mb-5 inline-flex rounded-full border border-[#c8ded2] bg-[#eaf2e9] px-3.5 py-2 text-[10px] font-extrabold uppercase tracking-[0.14em] text-brand-700 sm:text-[11px]">
+            Sensing danger, delivering Haven
+          </p>
+          <h1 className="max-w-[620px] font-display text-[40px] font-extrabold leading-[1.04] tracking-[-0.055em] text-ink sm:text-[50px] lg:text-[60px]">
+            Your parents deserve <span className="text-brand-500">safety</span> that never{' '}
+            <span className="text-brand-500">sleeps</span>
+          </h1>
+          <p className="mt-5 max-w-[540px] text-[15px] leading-relaxed text-ink-muted md:text-[16px]">
+            Discreet 24GHz radar sensors help monitor your parents at home. When a fall is detected, Hertz &amp; Haven helps share an alert with family and coordinate a faster response — without cameras or wearables.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-3.5">
+            <Button size="lg" variant="primary" onPress={() => navigate('/login?mode=signup')}>
+              Create Free Account
+            </Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              onPress={() => document.getElementById('how')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              See How It Works
+            </Button>
+          </div>
+          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+            {['No cameras or wearables', 'Built around family care', 'Designed for Indian homes'].map((item) => (
+              <span key={item} className="flex items-center gap-2 text-[11px] text-ink-muted">
+                <CheckCircleIcon className="size-3.5 fill-signal-ok" />{item}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
-          {[
-            'No cameras — 100% privacy',
-            'All data stored securely',
-            'Free for families',
-          ].map((t) => (
-            <span key={t} className="flex items-center gap-2 text-[12px] text-ink-muted">
-              <CheckCircleIcon className="size-3.5 fill-signal-ok" />
-              {t}
-            </span>
-          ))}
-        </div>
+        <HomeSafetyIllustration />
       </section>
 
       {/* The Problem */}
@@ -202,9 +239,8 @@ export default function Landing() {
               <span className="text-brand-500">ER</span> from a <span className="text-brand-500">fall</span>
             </h2>
             <p className="mt-5 text-[15px] leading-relaxed text-ink-muted">
-              India is home to an aging population of over 140 million, with a rapidly growing demographic of seniors
-              living with limited daily supervision. Falls are the leading cause of injury-related death among those
-              over 65 — and most go unnoticed for critical minutes or even hours.
+              India is home to a growing number of older adults, many living with limited daily supervision. A fall or
+              other emergency at home can go unnoticed for critical minutes or even hours.
             </p>
             <p className="mt-4 text-[15px] leading-relaxed text-ink-muted">
               Adult children living in other cities carry the constant worry:{' '}
@@ -218,7 +254,7 @@ export default function Landing() {
                 ['3x', 'Survival rate with rapid response'],
               ].map(([v, l]) => (
                 <div key={v}>
-                  <p className="font-display text-[30px] font-bold leading-none text-brand-500">{v}</p>
+                  <CountUp value={v} className="font-display text-[30px] font-bold leading-none text-brand-500" />
                   <p className="mt-1.5 text-[12px] leading-snug text-ink-muted">{l}</p>
                 </div>
               ))}
@@ -245,7 +281,7 @@ export default function Landing() {
       {/* How it works */}
       <section id="how" className="relative z-10 mx-auto max-w-[1060px] px-6 py-16 md:py-20">
         <SectionHeading
-          title="How The Hertz and Haven Company Works"
+          title="How Hertz & Haven Works"
           lede="From unboxing to 24/7 protection in under 10 minutes. No technicians, no wiring."
         />
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -274,9 +310,7 @@ export default function Landing() {
           {FEATURES.map((f) => (
             <article
               key={f.title}
-              className={`rounded-2xl border border-line bg-surface p-7 transition-all hover:-translate-y-1 hover:shadow-[0_12px_36px_rgba(40,53,74,0.10)] ${
-                f.wide ? 'md:col-span-2' : ''
-              }`}
+              className="rounded-2xl border border-line bg-surface p-7 transition-all hover:-translate-y-1 hover:shadow-[0_12px_36px_rgba(40,53,74,0.10)]"
             >
               <IconTile tone={f.tone}>{f.icon}</IconTile>
               <h3 className="mt-4 text-[16px] font-bold text-ink">{f.title}</h3>
@@ -301,14 +335,12 @@ export default function Landing() {
         <div className="text-center">
           <h2 className="font-display text-[28px] font-bold text-ink md:text-[30px]">Why We Built This</h2>
           <p className="mt-6 text-[19px] italic leading-relaxed text-ink md:text-[20px]">
-            As we began this journey, a common conversation in our team was the quiet worry we all felt about our own
-            aging parents and grandparents. Living far apart, the distance felt personal. We all shared a simple
-            question: 'What if they need help and no one is there?' This shared concern became our mission. We built
-            The Hertz and Haven Company to bridge that gap to provide a non-intrusive, dignified way for families to
-            maintain a true sense of connection and security, ensuring loved ones are never really alone.
+            We started with a familiar worry: what if someone we love needs help and no one is nearby? Hertz &amp; Haven
+            grew from that question into a simple goal — help families stay connected to the people and places they
+            care about, while respecting the dignity and independence of older adults.
           </p>
           <p className="mt-5 text-[14px] font-semibold text-ink">
-            The Hertz and Haven Company Team{' '}
+            The Hertz &amp; Haven Team{' '}
             <span className="font-normal text-ink-muted">· Young Founders Challenge 2026</span>
           </p>
         </div>
@@ -317,7 +349,7 @@ export default function Landing() {
       {/* FAQ */}
       <section id="faq" className="relative z-10 mx-auto max-w-[760px] px-6 py-16 md:py-20">
         <SectionHeading title="Frequently Asked Questions" />
-        <Accordion className="mt-10 w-full" hideSeparator>
+        <Accordion className="mt-10 w-full" hideSeparator allowsMultipleExpanded>
           {FAQS.map((f) => (
             <Accordion.Item key={f.q}>
               <Accordion.Heading>
@@ -338,32 +370,55 @@ export default function Landing() {
         </Accordion>
       </section>
 
-      {/* CTA */}
-      <section className="relative z-10 px-6 py-16">
-        <div className="relative mx-auto max-w-[800px] overflow-hidden rounded-3xl bg-gradient-to-br from-ink to-[#1e1e30] px-8 py-14 text-center md:px-12">
-          <div className="pointer-events-none absolute -right-20 -top-20 size-[280px] rounded-full bg-brand-300/15 blur-[60px]" />
-          <h2 className="relative font-display text-[26px] font-bold text-white md:text-[30px]">
-            Protect the people who raised you
-          </h2>
-          <p className="relative mx-auto mt-3 max-w-[500px] text-[15px] leading-relaxed text-white/55">
-            Create a free account in 2 minutes. Set up home monitoring in under 10. No credit card, no subscription, no
-            technician visit required.
-          </p>
-          <Button size="lg" variant="primary" className="relative mt-7" onPress={() => navigate('/login')}>
-            Get Started — It's Free
-          </Button>
+      {/* Download app */}
+      <section id="download" className="relative z-10 px-5 py-14 sm:px-6 md:py-20">
+        <div className="relative mx-auto grid max-w-[1100px] gap-8 overflow-hidden rounded-[28px] bg-[radial-gradient(circle_at_10%_10%,rgba(73,161,126,0.48),transparent_36%),linear-gradient(135deg,#173f38,#102f2d_74%)] p-6 text-white shadow-[0_22px_54px_rgba(27,61,51,0.20)] sm:p-9 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-12 lg:p-14">
+          <div className="pointer-events-none absolute -bottom-52 -right-24 size-[390px] rounded-full border border-white/10 shadow-[0_0_0_34px_rgba(255,255,255,0.025),0_0_0_74px_rgba(255,255,255,0.02)]" />
+          <div className="relative z-10">
+            <p className="mb-3 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#a8d5b9]">Download the Hertz &amp; Haven app</p>
+            <h2 className="max-w-[390px] font-display text-[32px] font-bold leading-tight tracking-[-0.035em] text-white md:text-[42px]">
+              Bring peace of mind with you.
+            </h2>
+            <p className="mt-4 max-w-[390px] text-[14px] leading-relaxed text-white/75">
+              Open the family dashboard on the web today. Native app listings and a direct Android package can be added here when they are published.
+            </p>
+          </div>
+          <div className="relative z-10 grid gap-3 sm:grid-cols-2">
+            <a className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" href="https://apps.apple.com/in/search?term=Hertz%20%26%20Haven" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="currentColor" aria-hidden="true"><path d="M16.37 12.06c.02 2.2 1.93 2.93 1.95 2.94-.02.05-.3 1.04-.99 2.06-.6.88-1.22 1.75-2.2 1.77-.96.02-1.27-.57-2.37-.57-1.1 0-1.45.55-2.36.59-.95.04-1.67-.95-2.27-1.82-1.23-1.78-2.17-5.04-.91-7.24.62-1.09 1.73-1.78 2.94-1.8.92-.02 1.79.62 2.36.62.57 0 1.64-.77 2.77-.66.47.02 1.8.19 2.65 1.42-.07.04-1.58.92-1.57 2.69ZM14.55 6.6c.5-.6.84-1.42.75-2.24-.72.03-1.59.48-2.11 1.08-.46.53-.86 1.36-.75 2.16.8.06 1.61-.4 2.11-1Z"/></svg>
+              <span><small className="block text-[10px] text-ink-muted">For iPhone and iPad</small><strong className="mt-1 block text-[14px]">Search the App Store</strong></span>
+            </a>
+            <a className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" href="https://play.google.com/store/search?q=Hertz%20%26%20Haven&amp;c=apps" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="currentColor" aria-hidden="true"><path d="M3.2 2.8c-.14.22-.2.5-.2.83v16.74c0 .34.07.62.2.84L12.56 12 3.2 2.8Zm10.4 7.18L5.36 1.67l11.47 6.52-3.23 1.79Zm4.48 2.48-3.02-1.68 3.32-1.84 2.08 1.18c.72.41.72 1.05 0 1.46l-2.38.88ZM5.36 22.33l8.24-8.31 3.23 1.79L5.36 22.33Zm7.2-10.33 4.27 2.37-11.47 6.52 7.2-8.89Z"/></svg>
+              <span><small className="block text-[10px] text-ink-muted">For Android phones</small><strong className="mt-1 block text-[14px]">Search Google Play</strong></span>
+            </a>
+            <button type="button" disabled aria-describedby="download-note" className="flex min-h-[78px] cursor-not-allowed items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-left text-ink opacity-75">
+              <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
+              <span><small className="block text-[10px] text-ink-muted">Android package</small><strong className="mt-1 block text-[14px]">Direct APK · Coming soon</strong></span>
+            </button>
+            <a className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" href="/login?mode=signup">
+              <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+              <span><small className="block text-[10px] text-ink-muted">Works in your browser</small><strong className="mt-1 block text-[14px]">Open the Web App</strong></span>
+            </a>
+            <p id="download-note" className="text-[11px] leading-relaxed text-white/65 sm:col-span-2">
+              The store buttons open searches for Hertz &amp; Haven. Store listings and a signed APK are not published in this project yet.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="relative z-10 mx-auto flex max-w-[1060px] flex-col items-center justify-between gap-3 border-t border-line px-6 py-8 text-[12px] text-ink-faint md:flex-row">
-        <span>© 2026 The Hertz and Haven Company · Young Founders Challenge 2026 · All data stored securely</span>
-        <div className="flex gap-6">
+        <span>© 2026 Hertz &amp; Haven · Young Founders Challenge 2026 · Privacy-minded family care</span>
+        <div className="flex flex-wrap justify-center gap-5">
           <a href="#features" className="text-ink-muted transition-colors hover:text-brand-500">
             Features
           </a>
           <a href="#faq" className="text-ink-muted transition-colors hover:text-brand-500">
             FAQ
+          </a>
+          <a href="#download" className="text-ink-muted transition-colors hover:text-brand-500">
+            Download App
           </a>
           <button
             type="button"
