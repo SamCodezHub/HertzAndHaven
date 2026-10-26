@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#075d54">
+  <meta name="description" content="A calm, clear dashboard for your Hertz & Haven sensors.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="new_logo_mark.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="styles.css">
+  <title>Hertz &amp; Haven · Sensor dashboard</title>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Hertz and Haven home"><img class="brand-mark" src="new_logo_mark.jpg" alt=""><span>Hertz &amp; Haven</span></a>
+      <button class="text-button hidden" id="logout-button">Sign out</button>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow">REMOTE SENSOR NETWORK</p>
+      <h1 id="welcome-title">Your sensors, together.</h1>
+      <p class="subhead" id="welcome-subtitle">Create an account to sync your devices from anywhere.</p>
+    </section>
+
+    <a class="apk-download" id="apk-download" href="./dist/Hertz%20Sense.apk" download="Hertz-Haven.apk">
+      <span class="apk-download-icon">↓</span>
+      <span class="apk-download-copy"><strong>Download Hertz &amp; Haven</strong><small>Android app · APK</small></span>
+      <span class="apk-download-arrow">↗</span>
+    </a>
+
+    <section id="auth-panel" class="auth-panel">
+      <div class="auth-tabs">
+        <button id="show-login" class="active" type="button">Sign in</button>
+        <button id="show-register" type="button">Create account</button>
+      </div>
+      <form id="login-form">
+        <label>Cloud service URL<input id="login-endpoint" type="url" placeholder="https://your-worker.workers.dev" required></label>
+        <label>Generated account ID<input id="login-id" type="text" placeholder="SNT-0123456789ABCDEF" autocomplete="username" required></label>
+        <label>Password<input id="login-password" type="password" minlength="8" autocomplete="current-password" required></label>
+        <div class="form-error" id="login-error" role="alert"></div>
+        <button class="primary-button full-button" type="submit">Sign in</button>
+      </form>
+      <form id="register-form" class="hidden">
+        <label>Cloud service URL<input id="register-endpoint" type="url" placeholder="https://your-worker.workers.dev" required></label>
+        <label>Your name<input id="register-name" type="text" maxlength="48" autocomplete="name" required></label>
+        <label>Create a password<input id="register-password" type="password" minlength="8" maxlength="128" autocomplete="new-password" required></label>
+        <p class="helper-text">Your new account ID is generated after sign-up. Save it with your password; there is no email-based recovery.</p>
+        <div class="form-error" id="register-error" role="alert"></div>
+        <button class="primary-button full-button" type="submit">Create account</button>
+      </form>
+      <section id="created-account" class="created-account hidden">
+        <p class="eyebrow">YOUR NEW ACCOUNT ID</p>
+        <div class="copy-row"><code id="new-account-id"></code><button class="secondary-button" id="copy-account-id" type="button">Copy</button></div>
+        <p>Keep this ID and your password. Enter both in the app whenever you sign in.</p>
+        <button class="primary-button full-button" id="continue-account" type="button">Continue to sensors</button>
+      </section>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="account-strip"><span>ACCOUNT</span><code id="account-id-label"></code></div>
+      <div class="devices-bar">
+        <label class="device-select-label">YOUR SENSORS<select id="device-select"></select></label>
+        <button class="add-device-button" id="add-device" type="button">+ Add sensor</button>
+      </div>
+      <section class="device-card" aria-labelledby="device-name">
+        <div class="card-head">
+          <div class="device-id"><span class="device-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h2m12 0h2M7 8a5 5 0 0 0 0 8m10-8a5 5 0 0 1 0 8m-7-11a10 10 0 0 0 0 14m4-14a10 10 0 0 1 0 14"/></svg></span><div><p class="eyebrow">MONITORING DEVICE</p><h2 id="device-name">Add your first sensor</h2></div></div>
+          <span class="status-pill" id="status-pill"><i></i><span id="status-text">Not connected</span></span>
+        </div>
+        <div class="rule"></div>
+        <div class="velocity-area">
+          <div class="metric-label">RADIAL VELOCITY</div>
+          <div class="velocity-line"><span id="velocity-value">--</span><span id="velocity-unit">m/s</span></div>
+          <div class="direction" id="direction">Pair a sensor to see readings</div>
+        </div>
+        <div class="radar-wrap" aria-hidden="true"><div class="radar-grid"><span class="radar-sweep"></span><span class="radar-dot"></span></div></div>
+        <div class="card-foot"><span>LAST UPDATED</span><span id="updated-at">No data received</span></div>
+      </section>
+      <section class="details-grid">
+        <article class="detail-card"><div class="detail-icon mint">⌁</div><div><p class="detail-label">SENSOR</p><p class="detail-value">mmWave radar</p></div><span class="detail-state" id="sensor-state">—</span></article>
+        <article class="detail-card"><div class="detail-icon blue">⌖</div><div><p class="detail-label">DEVICE ID</p><p class="detail-value" id="device-short">—</p></div><span class="detail-state" id="device-state">—</span></article>
+      </section>
+    </section>
+    <footer><span class="live-indicator"></span><span id="footer-state">Sign in to get started</span><span class="footer-sep">·</span><span>Refreshes every 3 sec</span></footer>
+  </main>
+
+  <dialog id="device-dialog">
+    <form method="dialog" id="device-form">
+      <div class="dialog-head"><div><p class="eyebrow">PAIR A SENSOR</p><h2>Add a device</h2></div><button class="icon-button close-button" value="cancel" aria-label="Close">×</button></div>
+      <p class="dialog-copy">Create a device for this account. Copy the generated ID and write key into your ESP32 <code>secrets.h</code> file.</p>
+      <label>Sensor name<input id="device-name-input" type="text" placeholder="Bedroom sensor" maxlength="48" required></label>
+      <div class="form-error" id="device-error" role="alert"></div>
+      <button class="primary-button full-button" id="create-device" value="default">Generate pairing details</button>
+      <section id="pairing-result" class="pairing-result hidden">
+        <p class="eyebrow">COPY THESE INTO secrets.h</p>
+        <pre id="pairing-code"></pre>
+        <button class="secondary-button full-button" id="copy-pairing" type="button">Copy pairing details</button>
+        <p class="helper-text">The write key is shown once. Save it before closing this screen.</p>
+      </section>
+    </form>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>

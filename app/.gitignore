@@ -1,0 +1,7 @@
+secrets.h
+.build-tools/
+android/.gradle/
+android/local.properties
+
+android/app/build/
+*.idsig
