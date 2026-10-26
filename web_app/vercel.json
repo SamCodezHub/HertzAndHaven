@@ -1,12 +1,19 @@
 {
   "version": 2,
   "cleanUrls": false,
+  "redirects": [
+    { "source": "/login.html", "destination": "/enquiry.html", "permanent": false },
+    { "source": "/onboarding", "destination": "/#download", "permanent": false },
+    { "source": "/onboarding.html", "destination": "/#download", "permanent": false },
+    { "source": "/dashboard", "destination": "/#download", "permanent": false },
+    { "source": "/dashboard.html", "destination": "/#download", "permanent": false },
+    { "source": "/family-dashboard", "destination": "/#download", "permanent": false },
+    { "source": "/family-dashboard.html", "destination": "/#download", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
-    { "source": "/login", "destination": "/login.html" },
-    { "source": "/onboarding", "destination": "/onboarding.html" },
-    { "source": "/dashboard", "destination": "/dashboard.html" },
-    { "source": "/family-dashboard", "destination": "/family-dashboard.html" }
+    { "source": "/login", "destination": "/enquiry.html" },
+    { "source": "/enquiry", "destination": "/enquiry.html" }
   ],
   "headers": [
     {
