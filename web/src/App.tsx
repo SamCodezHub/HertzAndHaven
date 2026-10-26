@@ -4,6 +4,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import RouteFallback from './components/RouteFallback';
 
 const Landing = lazy(() => import('./pages/Landing'));
+const Enquiry = lazy(() => import('./pages/Enquiry'));
 const Login = lazy(() => import('./pages/Login'));
 const Onboarding = lazy(() => import('./pages/Onboarding'));
 const FamilyDashboard = lazy(() => import('./pages/FamilyDashboard'));
@@ -37,7 +38,11 @@ function App() {
                 <Route path="*" element={<NotFound />} />
               </>
             ) : (
-              <Route path="*" element={<Navigate to="/#download" replace />} />
+              <>
+                <Route path="/login" element={<Enquiry />} />
+                <Route path="/enquiry" element={<Enquiry />} />
+                <Route path="*" element={<Navigate to="/#download" replace />} />
+              </>
             )}
           </Routes>
         </Suspense>

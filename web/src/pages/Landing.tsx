@@ -1,4 +1,5 @@
 import { Accordion, Button } from '@heroui/react';
+import { Link } from 'react-router-dom';
 import { BrandMark, CountUp, IconTile, SectionHeading, StatCard } from '../components/primitives';
 import {
   AlertIcon,
@@ -179,11 +180,17 @@ export default function Landing() {
               {label}
             </a>
           ))}
+          <Link to="/enquiry" className="text-[13px] font-semibold text-ink-muted transition-colors hover:text-brand-600">
+            Enquire
+          </Link>
           <Button size="sm" variant="primary" onPress={scrollToDownloads}>
             Download App
           </Button>
         </div>
-        <div className="lg:hidden">
+        <div className="flex items-center gap-3 lg:hidden">
+          <Link to="/enquiry" className="text-[12px] font-semibold text-brand-700 transition-colors hover:text-brand-500">
+            Enquire
+          </Link>
           <Button size="sm" variant="primary" onPress={scrollToDownloads}>
             Download App
           </Button>
@@ -412,6 +419,9 @@ export default function Landing() {
           <a href="#download" className="text-ink-muted transition-colors hover:text-brand-500">
             Download App
           </a>
+          <Link to="/enquiry" className="text-ink-muted transition-colors hover:text-brand-500">
+            Enquire
+          </Link>
         </div>
       </footer>
     </div>
