@@ -54,11 +54,13 @@
         .brand-mark {
             width: 36px; height: 36px;
             border-radius: 11px;
+            position: relative;
+            overflow: hidden;
             background: linear-gradient(145deg, #15927D, #075D54);
             display: flex; align-items: center; justify-content: center;
         }
 
-        .brand-mark svg { width: 21px; height: 21px; fill: none; stroke: #fff; }
+        .brand-mark img { position: absolute; left: -78.75%; top: -50%; width: 256%; height: 256%; max-width: none; object-fit: cover; }
         .brand-name { font-size: 13.5px; font-weight: 700; }
         .brand-tag { font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--acc); }
 
@@ -445,10 +447,7 @@
     <div class="topbar">
         <div class="brand-row">
             <div class="brand-mark">
-                <svg viewBox="0 0 48 48" aria-label="Hertz and Haven signal mark">
-                    <path d="M8 26h9l5-11 7 18 5-10h7" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M10 12a19 19 0 0 1 27-1M38 36a19 19 0 0 1-27 1" stroke-width="2.4" stroke-linecap="round" opacity=".72" />
-                </svg>
+                <img src="new_logo_mark.jpg" alt="" aria-hidden="true">
             </div>
             <div>
                 <div class="brand-tag">// Family Gateway</div>

@@ -8,16 +8,22 @@ export function BrandMark({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
     md: 'size-11 rounded-[14px]',
     lg: 'size-12 rounded-[15px]',
   };
+  const logoCrop = {
+    sm: 'size-[92px] -left-[28px] -top-[18px]',
+    md: 'size-[113px] -left-[35px] -top-[22px]',
+    lg: 'size-[123px] -left-[38px] -top-[24px]',
+  };
 
   return (
     <span
       aria-hidden="true"
-      className={`grid shrink-0 place-items-center bg-gradient-to-br from-[#15927d] to-[#075d54] text-white shadow-[0_8px_18px_rgba(8,117,104,0.18)] ${sizes[size]}`}
+      className={`relative grid shrink-0 place-items-center overflow-hidden bg-gradient-to-br from-[#15927d] to-[#075d54] shadow-[0_8px_18px_rgba(8,117,104,0.18)] ${sizes[size]}`}
     >
-      <svg viewBox="0 0 48 48" className="size-[58%]" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8 26h9l5-11 7 18 5-10h7" strokeWidth="3.2" />
-        <path d="M10 12a19 19 0 0 1 27-1M38 36a19 19 0 0 1-27 1" strokeWidth="2.4" opacity=".72" />
-      </svg>
+      <img
+        src={`${import.meta.env.BASE_URL}new_logo_mark.jpg`}
+        alt=""
+        className={`absolute max-w-none object-cover ${logoCrop[size]}`}
+      />
     </span>
   );
 }

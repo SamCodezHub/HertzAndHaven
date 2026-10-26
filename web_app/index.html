@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hertz &amp; Haven — Family Safety at Home</title>
+    <link rel="icon" type="image/jpeg" href="new_logo_mark.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -72,7 +73,6 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        .brand-mark svg { width: 20px; height: 20px; fill: #fff; }
 
         .brand-name {
             font-family: 'Geist', 'Inter', 'Segoe UI', sans-serif;
@@ -628,11 +628,13 @@
             width: 44px;
             height: 44px;
             border-radius: 14px;
+            position: relative;
+            overflow: hidden;
             color: #fff;
             background: linear-gradient(145deg, #15927D, #075D54);
             box-shadow: 0 8px 18px rgba(8, 117, 104, 0.18);
         }
-        .brand-mark svg { width: 25px; height: 25px; fill: none; stroke: currentColor; }
+        .brand-mark img { position: absolute; left: -78.75%; top: -50%; width: 256%; height: 256%; max-width: none; object-fit: cover; }
         .brand-name { font-size: 17px; font-weight: 750; letter-spacing: -0.45px; }
         .nav-links { gap: clamp(16px, 2.4vw, 32px); }
         .nav-links a { color: var(--muted); }
@@ -887,10 +889,7 @@
     <nav>
         <div class="nav-brand">
             <div class="brand-mark">
-                <svg viewBox="0 0 48 48" aria-hidden="true">
-                    <path d="M8 26h9l5-11 7 18 5-10h7" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M10 12a19 19 0 0 1 27-1M38 36a19 19 0 0 1-27 1" stroke-width="2.4" stroke-linecap="round" opacity=".72" />
-                </svg>
+                <img src="new_logo_mark.jpg" alt="" aria-hidden="true">
             </div>
             <div class="brand-name">Hertz &amp; Haven</div>
         </div>
