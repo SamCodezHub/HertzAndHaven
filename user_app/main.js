@@ -9,8 +9,10 @@ const DEV_SERVER_URL =
     process.env.VITE_DEV_SERVER_URL ||
     (process.argv.includes('--dev') ? 'http://localhost:5173' : null);
 
-/** Production bundle produced by `npm run build` in ../web. */
-const APP_INDEX = path.join(__dirname, '..', 'web', 'dist', 'index.html');
+/** Production bundle copied into resources/web by electron-builder. */
+const APP_INDEX = app.isPackaged
+    ? path.join(process.resourcesPath, 'web', 'index.html')
+    : path.join(__dirname, '..', 'web', 'dist', 'index.html');
 
 const senderSessions = new Map();
 
@@ -40,9 +42,9 @@ function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1280,
         height: 840,
-        minWidth: 1024,
-        minHeight: 700,
-        backgroundColor: '#E9F0F4',
+        minWidth: 800,
+        minHeight: 600,
+        backgroundColor: '#F7F5EF',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             contextIsolation: true,
@@ -68,7 +70,10 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-    auth.initStore();
+    const dataDir = app.isPackaged
+        ? path.join(app.getPath('userData'), 'data')
+        : undefined;
+    auth.initStore(dataDir);
     createWindow();
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();

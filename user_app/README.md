@@ -1,48 +1,37 @@
-# Hertz & Haven — Desktop App
+# Hertz & Haven — Windows desktop app
 
-Electron shell for the Hertz & Haven care platform. The UI lives in `../web`
-(React + Vite + Tailwind + HeroUI) and is loaded by Electron — there is no
-duplicated HTML in this folder.
+The Windows app packages the same React dashboard used by the desktop shell, including account creation and sign-in, onboarding, the family dashboard, and the moderator console. Electron presents the UI in a native desktop window. Accounts and profile data are stored on that Windows computer in Electron's user data folder.
 
-## Run the built app
+## Build the installer
 
-```bash
-# from the repository root
-cd web && npm install && npm run build
+From the repository root, run:
 
-# then
-cd ../user_app
-npm install
-npm start
-```
+    npm ci --prefix web
+    npm ci --prefix user_app
+    npm run build:windows --prefix user_app
 
-`npm start` loads `web/dist/index.html` over `file://`, so the app uses hash
-routing (`#/login`, `#/dashboard`, …).
+The installer is written to user_app/dist/Hertz-Haven-Setup.exe. GitHub Actions runs the same build for updates and publishes the installer to the latest GitHub Release.
 
-## Run against the dev server (hot reload)
-
-```bash
-# terminal 1
-cd web && npm run dev          # http://localhost:5173
-
-# terminal 2
-cd user_app && npm run dev
-```
+To run the app locally without building the installer, build the web UI first, then run npm start --prefix user_app. Electron loads web/dist/index.html over file:// and uses hash routes such as #/login and #/dashboard.
 
 ## Demo accounts
 
-| Role     | Email                             | Password       |
-| -------- | --------------------------------- | -------------- |
-| Caregiver| rishabh.sharma@hertzandhaven.app  | rishabh@402    |
-| Moderator| moderator@hertzandhaven.app       | moderator@402  |
+| Role | Email | Password |
+| --- | --- | --- |
+| Caregiver | rishabh.sharma@hertzandhaven.app | rishabh@402 |
+| Moderator | moderator@hertzandhaven.app | moderator@402 |
 
-Both are also reachable with one tap from the login screen. The moderator
-console is part of this app (`#/dashboard`) and is role-gated; the old
-`moderator_app` folder has been removed.
+Both accounts are available through the login screen's demo sign-in buttons.
+
+## Windows app data and cloud connection
+
+The packaged app stores its local account database in %APPDATA%\hertz-and-haven\data. Uninstalling the app does not normally remove that user data. The desktop account store is local to this computer and does not sync with the Android app. Live sensor readings still require a separately deployed cloud relay and firmware configured for that relay.
+
+The installer is currently unsigned. Windows SmartScreen may ask you to confirm before running it.
 
 ## Layout
 
-- `main.js` — window bootstrap, dev/prod switching, IPC handlers
-- `preload.js` — context-isolated `window.electronAPI` bridge
-- `auth-store.js` — local account/session store (`data/auth-db.json`)
-- `sample-plan.js` — generated floor plan + sensor layout
+- main.js — Electron window and native account handlers
+- preload.js — context-isolated app bridge
+- auth-store.js — local account and session database
+- sample-plan.js — generated sample floor plan and sensor layout

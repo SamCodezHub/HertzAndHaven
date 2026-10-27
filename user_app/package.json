@@ -1,17 +1,52 @@
 {
   "name": "elderly-accident-prevention-101",
-  "version": "1.0.0",
-  "description": "Elderly Accident Prevention System",
+  "version": "1.0.1",
+  "productName": "Hertz & Haven",
+  "description": "Hertz & Haven family safety dashboard for Windows",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "dev": "electron . --dev",
-    "build:web": "npm --prefix ../web run build",
-    "build": "npm run build:web && electron ."
+    "build:web": "npm --prefix ../web run build:desktop",
+    "build": "npm run build:web && electron .",
+    "build:windows": "npm run build:web && npx --yes electron-builder@25.1.8 --win nsis --x64 --publish never"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "build": {
+    "appId": "app.hertzandhaven.desktop",
+    "productName": "Hertz & Haven",
+    "asar": true,
+    "files": [
+      "main.js",
+      "preload.js",
+      "auth-store.js",
+      "sample-plan.js",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../web/dist",
+        "to": "web"
+      }
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": ["nsis"],
+      "artifactName": "Hertz-Haven-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Hertz & Haven"
+    }
+  },
   "devDependencies": {
     "electron": "^33.0.0"
   }

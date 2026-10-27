@@ -5,9 +5,9 @@ const path = require('path');
 const crypto = require('crypto');
 const { samplePlanDataUrl, SAMPLE_SENSORS } = require('./sample-plan');
 
-const DATA_DIR = path.join(__dirname, 'data');
-const DB_FILE = path.join(DATA_DIR, 'auth-db.json');
-const LEGACY_ACCOUNTS_FILE = path.join(DATA_DIR, 'accounts.json');
+let DATA_DIR = path.join(__dirname, 'data');
+let DB_FILE = path.join(DATA_DIR, 'auth-db.json');
+let LEGACY_ACCOUNTS_FILE = path.join(DATA_DIR, 'accounts.json');
 
 const REMEMBERED_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 const SHORT_TTL_MS = 12 * 60 * 60 * 1000;
@@ -290,7 +290,12 @@ function ensureSeedUsers() {
     }
 }
 
-function initStore() {
+function initStore(dataDirectory) {
+    if (dataDirectory) {
+        DATA_DIR = path.resolve(dataDirectory);
+        DB_FILE = path.join(DATA_DIR, 'auth-db.json');
+        LEGACY_ACCOUNTS_FILE = path.join(DATA_DIR, 'accounts.json');
+    }
     if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
     let loaded = null;
     try {

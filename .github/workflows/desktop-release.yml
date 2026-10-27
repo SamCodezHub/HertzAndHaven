@@ -1,0 +1,64 @@
+name: Build and publish Hertz & Haven for Windows
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "user_app/**"
+      - "web/**"
+      - "web_app/index.html"
+      - ".github/workflows/desktop-release.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: windows-desktop-release
+  cancel-in-progress: false
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    steps:
+      - name: Check out the app
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            web/package-lock.json
+            user_app/package-lock.json
+
+      - name: Install desktop UI dependencies
+        run: npm ci --prefix web
+
+      - name: Install Electron dependencies
+        run: npm ci --prefix user_app
+
+      - name: Build the Windows installer
+        run: npm run build:windows --prefix user_app
+
+      - name: Read desktop version
+        id: version
+        shell: pwsh
+        run: |
+          $version = (Get-Content user_app/package.json -Raw | ConvertFrom-Json).version
+          "value=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Publish installer to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.value }}-${{ github.run_number }}
+          name: Hertz & Haven for Windows v${{ steps.version.outputs.value }} (build ${{ github.run_number }})
+          body: |
+            Windows desktop installer for Hertz & Haven.
+
+            Download Hertz-Haven-Setup.exe and run it to install the app.
+            The installer is not code-signed, so Windows may show a SmartScreen warning.
+          files: user_app/dist/Hertz-Haven-Setup.exe
+          fail_on_unmatched_files: true
+          make_latest: true
