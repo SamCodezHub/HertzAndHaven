@@ -1,15 +1,15 @@
 {
   "name": "elderly-accident-prevention-101",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "productName": "Hertz & Haven",
-  "description": "Hertz & Haven family safety dashboard for Windows",
+  "description": "Hertz & Haven phone app for Windows",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "dev": "electron . --dev",
-    "build:web": "npm --prefix ../web run build:desktop",
-    "build": "npm run build:web && electron .",
-    "build:windows": "npm run build:web && npx --yes electron-builder@25.1.8 --win nsis --x64 --publish never"
+    "build:web": "echo The phone app is loaded directly from the app folder.",
+    "build": "npm run build:windows",
+    "build:windows": "npx --yes electron-builder@25.1.8 --win nsis --x64 --publish never"
   },
   "keywords": [],
   "author": "",
@@ -20,22 +20,29 @@
     "asar": true,
     "files": [
       "main.js",
-      "preload.js",
-      "auth-store.js",
-      "sample-plan.js",
       "package.json"
     ],
     "extraResources": [
       {
-        "from": "../web/dist",
-        "to": "web"
+        "from": "../app",
+        "to": "phone-app",
+        "filter": [
+          "index.html",
+          "app.js",
+          "styles.css",
+          "new_logo_mark.jpg",
+          "manifest.webmanifest",
+          "icon.svg"
+        ]
       }
     ],
     "directories": {
       "output": "dist"
     },
     "win": {
-      "target": ["nsis"],
+      "target": [
+        "nsis"
+      ],
       "artifactName": "Hertz-Haven-Setup.${ext}"
     },
     "nsis": {

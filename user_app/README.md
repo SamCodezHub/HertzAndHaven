@@ -1,37 +1,26 @@
-# Hertz & Haven — Windows desktop app
+# Hertz & Haven phone app for Windows
 
-The Windows app packages the same React dashboard used by the desktop shell, including account creation and sign-in, onboarding, the family dashboard, and the moderator console. Electron presents the UI in a native desktop window. Accounts and profile data are stored on that Windows computer in Electron's user data folder.
+This Windows installer packages the same sensor dashboard app as the Android APK. It includes cloud account creation and sign-in, device pairing, multichannel sensor status, and the live radial-velocity dashboard. The app keeps its account ID, service URL, and session on the PC, while the account and sensor records remain on the configured cloud service.
+
+## Install
+
+1. Download Hertz-Haven-Setup.exe from the website or the latest GitHub Release.
+2. Run the installer and follow the prompts. It creates a Start menu entry and optional desktop shortcut.
+3. Open Hertz & Haven and enter the Cloudflare Worker URL for your service.
+4. Create an account, or sign in with an existing account ID and password.
+5. Pair your ESP32 sensor as usual. Use the same cloud service URL and account to view devices registered on that service.
+
+The Windows installer is unsigned, so Windows SmartScreen may ask you to confirm before running it.
 
 ## Build the installer
 
 From the repository root, run:
 
-    npm ci --prefix web
     npm ci --prefix user_app
     npm run build:windows --prefix user_app
 
-The installer is written to user_app/dist/Hertz-Haven-Setup.exe. GitHub Actions runs the same build for updates and publishes the installer to the latest GitHub Release.
+The installer is written to user_app/dist/Hertz-Haven-Setup.exe. GitHub Actions builds and publishes a new installer when the app source changes.
 
-To run the app locally without building the installer, build the web UI first, then run npm start --prefix user_app. Electron loads web/dist/index.html over file:// and uses hash routes such as #/login and #/dashboard.
+## Data and compatibility
 
-## Demo accounts
-
-| Role | Email | Password |
-| --- | --- | --- |
-| Caregiver | rishabh.sharma@hertzandhaven.app | rishabh@402 |
-| Moderator | moderator@hertzandhaven.app | moderator@402 |
-
-Both accounts are available through the login screen's demo sign-in buttons.
-
-## Windows app data and cloud connection
-
-The packaged app stores its local account database in %APPDATA%\hertz-and-haven\data. Uninstalling the app does not normally remove that user data. The desktop account store is local to this computer and does not sync with the Android app. Live sensor readings still require a separately deployed cloud relay and firmware configured for that relay.
-
-The installer is currently unsigned. Windows SmartScreen may ask you to confirm before running it.
-
-## Layout
-
-- main.js — Electron window and native account handlers
-- preload.js — context-isolated app bridge
-- auth-store.js — local account and session database
-- sample-plan.js — generated sample floor plan and sensor layout
+The app uses the same Cloudflare Worker API as Android. The account and sensor records are shared through that cloud service; the saved service URL and session token are stored locally in the Windows app. The installer is currently unsigned and intended for Windows 10 and 11 PCs.

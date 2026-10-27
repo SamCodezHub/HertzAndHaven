@@ -163,4 +163,4 @@ try {
   if (saved && saved.endpoint && saved.accountId && saved.sessionToken) { account = saved; showDashboard(); } else showAuth();
 } catch { showAuth(); }
 if ('serviceWorker' in navigator && location.protocol.startsWith('http') && location.hostname !== 'appassets.androidplatform.net') navigator.serviceWorker.register('./sw.js').catch(() => {});
-if (location.hostname === 'appassets.androidplatform.net') $('apk-download').classList.add('hidden');
+if (location.hostname === 'appassets.androidplatform.net' || location.protocol === 'file:') $('apk-download').classList.add('hidden');

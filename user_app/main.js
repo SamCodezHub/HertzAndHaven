@@ -1,79 +1,47 @@
-const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron');
+const { app, BrowserWindow, Menu, shell, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const auth = require('./auth-store');
-const schematic = require('./sample-plan');
 
-/** Vite dev server (set by `npm run dev`, or pass --dev). */
-const DEV_SERVER_URL =
-    process.env.VITE_DEV_SERVER_URL ||
-    (process.argv.includes('--dev') ? 'http://localhost:5173' : null);
-
-/** Production bundle copied into resources/web by electron-builder. */
-const APP_INDEX = app.isPackaged
-    ? path.join(process.resourcesPath, 'web', 'index.html')
-    : path.join(__dirname, '..', 'web', 'dist', 'index.html');
-
-const senderSessions = new Map();
-
-function tokenFor(event) {
-    return senderSessions.get(event.sender.id) || null;
-}
-
-function safe(fn) {
-    try {
-        return fn();
-    } catch (err) {
-        console.error('[main]', err);
-        return { success: false, message: 'Something went wrong. Please try again.' };
-    }
-}
-
-function startHashFor(boot) {
-    if (!boot) return '/';
-    if (boot.user.role === 'moderator') return '/dashboard';
-    if (!boot.profile || !boot.profile.onboarding || !boot.profile.onboarding.completed) return '/onboarding';
-    return '/family-dashboard';
-}
+const PHONE_APP_INDEX = app.isPackaged
+    ? path.join(process.resourcesPath, 'phone-app', 'index.html')
+    : path.join(__dirname, '..', 'app', 'index.html');
 
 function createWindow() {
     Menu.setApplicationMenu(null);
 
     const mainWindow = new BrowserWindow({
-        width: 1280,
-        height: 840,
-        minWidth: 800,
-        minHeight: 600,
+        width: 980,
+        height: 900,
+        minWidth: 500,
+        minHeight: 650,
         backgroundColor: '#F7F5EF',
+        autoHideMenuBar: true,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
             contextIsolation: true,
-            nodeIntegration: false
+            nodeIntegration: false,
+            sandbox: true
         }
     });
 
-    if (DEV_SERVER_URL) {
-        mainWindow.loadURL(DEV_SERVER_URL);
-        mainWindow.webContents.openDevTools({ mode: 'detach' });
-        return;
-    }
+    mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+        if (url.startsWith('https://')) shell.openExternal(url);
+        return { action: 'deny' };
+    });
 
-    if (!fs.existsSync(APP_INDEX)) {
+    if (!fs.existsSync(PHONE_APP_INDEX)) {
         dialog.showErrorBox(
-            'Build not found',
-            'The web bundle is missing.\n\nRun "npm run build" inside the web/ folder, then relaunch the app.'
+            'App files missing',
+            'The Hertz & Haven phone app could not be found. Reinstall the app or rebuild the Windows installer.'
         );
+        app.quit();
         return;
     }
 
-    mainWindow.loadFile(APP_INDEX, { hash: startHashFor(auth.bootSession()) });
+    mainWindow.loadFile(PHONE_APP_INDEX);
 }
 
 app.whenReady().then(() => {
-    const dataDir = app.isPackaged
-        ? path.join(app.getPath('userData'), 'data')
-        : undefined;
-    auth.initStore(dataDir);
+    app.setAppUserModelId('app.hertzandhaven.desktop');
     createWindow();
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -83,57 +51,3 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
 });
-
-ipcMain.handle('auth:login', (event, payload) => safe(() => {
-    const res = auth.login(payload || {});
-    if (res.success) senderSessions.set(event.sender.id, res.session.token);
-    return res;
-}));
-
-ipcMain.handle('auth:register', (event, payload) => safe(() => {
-    const res = auth.register(payload || {});
-    if (res.success) senderSessions.set(event.sender.id, res.session.token);
-    return res;
-}));
-
-ipcMain.handle('auth:demo-login', (event, role) => safe(() => {
-    const res = auth.demoLogin(role);
-    if (res.success) senderSessions.set(event.sender.id, res.session.token);
-    return res;
-}));
-
-ipcMain.handle('auth:session', (event) => safe(() => {
-    return auth.resolveSession(tokenFor(event));
-}));
-
-ipcMain.handle('auth:profile', (event) => safe(() => {
-    return auth.profileForToken(tokenFor(event));
-}));
-
-ipcMain.handle('auth:update-profile', (event, patch) => safe(() => {
-    return auth.updateProfileForToken(tokenFor(event), patch);
-}));
-
-ipcMain.handle('auth:sign-out', (event) => safe(() => {
-    const res = auth.signOutToken(tokenFor(event));
-    senderSessions.delete(event.sender.id);
-    return res;
-}));
-
-ipcMain.handle('schematic:sample', () => safe(() => {
-    return { success: true, dataUrl: schematic.samplePlanDataUrl() };
-}));
-
-ipcMain.handle('schematic:analyze', (event, payload) => safe(() => {
-    const seed = (payload && payload.seed) || String(Date.now());
-    const res = schematic.analyzeSchematic(seed);
-    return { success: true, sensors: res.sensors, scanLog: res.scanLog };
-}));
-
-ipcMain.handle('onboarding:complete', (event, payload) => safe(() => {
-    const res = auth.completeOnboardingForToken(tokenFor(event), payload);
-    if (res.success && res.session && res.session.token) {
-        senderSessions.set(event.sender.id, res.session.token);
-    }
-    return res;
-}));

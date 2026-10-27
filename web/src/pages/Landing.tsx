@@ -401,7 +401,7 @@ export default function Landing() {
             </a>
             <a href="https://github.com/SamCodezHub/HertzAndHaven/releases/latest/download/Hertz-Haven-Setup.exe" aria-describedby="download-note" className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-left text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M7 8h4v4H7zm6 0h4v4h-4zM7 14h4m2 0h4"/></svg>
-              <span><small className="block text-[10px] text-ink-muted">Windows 10 and 11</small><strong className="mt-1 block text-[14px]">Download Windows installer</strong></span>
+              <span><small className="block text-[10px] text-ink-muted">Windows 10 and 11</small><strong className="mt-1 block text-[14px]">Install phone app for Windows</strong></span>
             </a>
             <p id="download-note" className="text-[11px] leading-relaxed text-white/65 sm:col-span-2">
               The Windows installer downloads from GitHub Releases. Android downloads the APK directly. App Store and Google Play buttons open availability searches.

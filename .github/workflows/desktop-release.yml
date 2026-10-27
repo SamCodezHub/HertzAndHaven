@@ -4,8 +4,8 @@ on:
   push:
     branches: ["main"]
     paths:
+      - "app/**"
       - "user_app/**"
-      - "web/**"
       - "web_app/index.html"
       - ".github/workflows/desktop-release.yml"
   workflow_dispatch:
@@ -29,12 +29,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: |
-            web/package-lock.json
-            user_app/package-lock.json
-
-      - name: Install desktop UI dependencies
-        run: npm ci --prefix web
+          cache-dependency-path: user_app/package-lock.json
 
       - name: Install Electron dependencies
         run: npm ci --prefix user_app
@@ -55,9 +50,9 @@ jobs:
           tag_name: ${{ steps.version.outputs.value }}-${{ github.run_number }}
           name: Hertz & Haven for Windows v${{ steps.version.outputs.value }} (build ${{ github.run_number }})
           body: |
-            Windows desktop installer for Hertz & Haven.
+            Windows installer for the Hertz & Haven sensor phone app.
 
-            Download Hertz-Haven-Setup.exe and run it to install the app.
+            Download Hertz-Haven-Setup.exe and run it to install the phone app on Windows.
             The installer is not code-signed, so Windows may show a SmartScreen warning.
           files: user_app/dist/Hertz-Haven-Setup.exe
           fail_on_unmatched_files: true
