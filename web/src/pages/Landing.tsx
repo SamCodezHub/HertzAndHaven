@@ -395,16 +395,16 @@ export default function Landing() {
               <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="currentColor" aria-hidden="true"><path d="M3.2 2.8c-.14.22-.2.5-.2.83v16.74c0 .34.07.62.2.84L12.56 12 3.2 2.8Zm10.4 7.18L5.36 1.67l11.47 6.52-3.23 1.79Zm4.48 2.48-3.02-1.68 3.32-1.84 2.08 1.18c.72.41.72 1.05 0 1.46l-2.38.88ZM5.36 22.33l8.24-8.31 3.23 1.79L5.36 22.33Zm7.2-10.33 4.27 2.37-11.47 6.52 7.2-8.89Z"/></svg>
               <span><small className="block text-[10px] text-ink-muted">For Android phones</small><strong className="mt-1 block text-[14px]">Check Google Play availability</strong></span>
             </a>
-            <a href="/Hertz-Haven.apk" download="Hertz-Haven.apk" aria-describedby="download-note" className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-left text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <a href="/Hertz-and-Haven-Zen1.apk" download="Hertz-and-Haven-Zen1.apk" aria-describedby="download-note" className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-left text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
-              <span><small className="block text-[10px] text-ink-muted">Android package</small><strong className="mt-1 block text-[14px]">Download Android APK</strong></span>
+              <span><small className="block text-[10px] text-ink-muted">Android package · Android 8+</small><strong className="mt-1 block text-[14px]">Download Hertz &amp; Haven APK</strong></span>
             </a>
-            <a href="https://github.com/SamCodezHub/HertzAndHaven/releases/latest/download/Hertz-Haven-Setup.exe" aria-describedby="download-note" className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-left text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <a href="/Hertz-Haven-Setup.exe" download="Hertz-Haven-Setup.exe" aria-describedby="download-note" className="group flex min-h-[78px] items-center gap-3 rounded-2xl border border-white/20 bg-surface px-4 py-3 text-left text-ink transition-all hover:-translate-y-0.5 hover:bg-brand-50 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               <svg viewBox="0 0 24 24" className="size-7 shrink-0 text-brand-700" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M7 8h4v4H7zm6 0h4v4h-4zM7 14h4m2 0h4"/></svg>
               <span><small className="block text-[10px] text-ink-muted">Windows 10 and 11</small><strong className="mt-1 block text-[14px]">Install phone app for Windows</strong></span>
             </a>
             <p id="download-note" className="text-[11px] leading-relaxed text-white/65 sm:col-span-2">
-              The Windows installer downloads from GitHub Releases. Android downloads the APK directly. App Store and Google Play buttons open availability searches.
+              The Windows installer downloads from GitHub Releases. Android downloads the APK directly; your phone may ask you to allow installation from your browser. App Store and Google Play buttons open availability searches.
             </p>
           </div>
         </div>

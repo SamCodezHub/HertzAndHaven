@@ -4,19 +4,19 @@ import type { ReactNode } from 'react';
 /** Minimal signal mark used consistently across marketing and account screens. */
 export function BrandMark({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
   const sizes = {
-    sm: 'size-9 rounded-[11px]',
-    md: 'size-11 rounded-[14px]',
-    lg: 'size-12 rounded-[15px]',
+    sm: 'size-9 rounded-[11px] p-1',
+    md: 'size-11 rounded-[14px] p-1.5',
+    lg: 'size-12 rounded-[15px] p-1.5',
   };
   return (
     <span
       aria-hidden="true"
-      className={`relative grid shrink-0 place-items-center overflow-hidden bg-gradient-to-br from-[#15927d] to-[#075d54] shadow-[0_8px_18px_rgba(8,117,104,0.18)] ${sizes[size]}`}
+      className={`relative grid shrink-0 place-items-center overflow-hidden border border-[#193264]/15 bg-white shadow-[0_6px_16px_rgba(25,50,100,0.10)] ${sizes[size]}`}
     >
       <img
-        src={`${import.meta.env.BASE_URL}new_logo_mark.jpg`}
-        alt=""
-        className="size-full object-cover"
+        src={`${import.meta.env.BASE_URL}new_logo.png`}
+        alt="Hertz & Haven"
+        className="size-full object-contain"
       />
     </span>
   );

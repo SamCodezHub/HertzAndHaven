@@ -34,3 +34,7 @@ config/config.py
 *.sw?
 *.err
 accounts.json
+
+# large desktop installers
+*.exe
+
