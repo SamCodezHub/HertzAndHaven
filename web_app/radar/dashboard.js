@@ -38,7 +38,7 @@ const fallNotes = {
   cooldown:'Give the mat area a moment to clear before the next trial.',
 };
 const radarNotes = {
-  offline: 'Select the ESP32's COM port to begin.',
+  offline: "Select the ESP32's COM port to begin.",
   waiting: 'Waiting for the diagnostic sketch to report radar frames.',
   usb_silent: 'COM port is open but USB is quiet. Check the selected port, board reset and USB CDC setting.',
   presence: 'The radar is reporting presence mode. Watch the console for the speed-mode setup commands.',
@@ -436,7 +436,7 @@ function render(data) {
   } else if (data.radar === 'out_live') {
     text('link', 'Radar OUT live � ' + data.port);
     link.dataset.tone = 'live';
-    text('radar-note', 'Receiving the sensor's digital OUT signal. Distance and speed require radar UART frames.');
+    text('radar-note', "Receiving the sensor's digital OUT signal. Distance and speed require radar UART frames.");
   } else {
     const label = {opening:'Opening',disconnected:'Disconnected',error:'COM port error',open:'Waiting for radar'};
     const status = data.radar === 'out_stale' ? 'Waiting for OUT' : label[data.connection];
