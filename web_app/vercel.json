@@ -11,6 +11,8 @@
     { "source": "/family-dashboard.html", "destination": "/#download", "permanent": false }
   ],
   "rewrites": [
+    { "source": "/radar", "destination": "/radar/index.html" },
+    { "source": "/radar/", "destination": "/radar/index.html" },
     { "source": "/", "destination": "/index.html" },
     { "source": "/login", "destination": "/enquiry.html" },
     { "source": "/enquiry", "destination": "/enquiry.html" }
