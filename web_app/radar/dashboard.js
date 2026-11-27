@@ -9,7 +9,8 @@ const age = value => value == null ? '-' : value.toFixed(1) + ' s ago';
 const windowSeconds = 30;
 let gapSeconds = 0.65;
 const hosted = location.pathname.startsWith('/radar/') && !['localhost', '127.0.0.1'].includes(location.hostname);
-const rehearsal = new URLSearchParams(location.search).get('view') === 'rehearsal';
+const view = new URLSearchParams(location.search).get('view');
+const rehearsal = view === 'rehearsal' || (hosted && view !== 'live');
 const checkinSeconds = 10;
 const sosAfterSeconds = 2.8 + checkinSeconds;
 let apiBase = '', hostedAccess = false;
@@ -508,6 +509,13 @@ window.addEventListener('resize', redraw);
 byId('hosted-access').addEventListener('click', () => command('hosted-access', {enabled:!hostedAccess}));
 redraw();
 setInterval(redraw, 500);
+if (hosted) {
+  const modeLink = document.querySelector('a[href="?view=rehearsal"]');
+  if (modeLink) {
+    modeLink.href = rehearsal ? '?view=live' : '?view=rehearsal';
+    modeLink.textContent = rehearsal ? 'Connect live radar' : 'View moving demo';
+  }
+}
 if (rehearsal) {
   startRehearsal();
 } else if (hosted) {
@@ -716,6 +724,7 @@ function updateRehearsal() {
 function startRehearsal() {
     document.body.classList.add('studio');
     resetRehearsal();
+    if (hosted) text('link', 'Simulated readings');
     setInterval(updateRehearsal, 200);
     document.addEventListener('keydown', event => {
       if (event.repeat || event.ctrlKey || event.altKey || event.metaKey ||
