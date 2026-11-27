@@ -1535,6 +1535,9 @@
             }
         }
     
+        /* Clear white backing keeps the transparent crest legible. */
+        .brand-mark { background: #fff !important; border: 1px solid #d8e7f1; box-shadow: 0 5px 15px rgba(42,86,121,.12) !important; }
+        .brand-mark img { object-fit: contain; padding: 3px; }
         /* Radar monitor palette. */
         nav { background: rgba(243,248,252,.94); border-bottom-color: var(--line); }
         .g1, .g2, .g3 { background: rgba(84,147,190,.12); }
@@ -1614,55 +1617,55 @@
                 </title>
                 <defs>
                     <linearGradient id="sceneBg" x1="0" y1="0" x2="1" y2="1">
-                        <stop stop-color="#E3F0E5" />
-                        <stop offset="1" stop-color="#F8EBD6" />
+                        <stop stop-color="#E3F1FA" />
+                        <stop offset="1" stop-color="#F1F7FC" />
                     </linearGradient>
                     <linearGradient id="windowBg" x1="0" y1="0" x2="0" y2="1">
-                        <stop stop-color="#B9D9CF" />
-                        <stop offset="1" stop-color="#F0D59E" />
+                        <stop stop-color="#B8DAED" />
+                        <stop offset="1" stop-color="#E3F2FA" />
                     </linearGradient>
                     <linearGradient id="sofaBg" x1="0" y1="0" x2="1" y2="1">
-                        <stop stop-color="#719B83" />
-                        <stop offset="1" stop-color="#467766" />
+                        <stop stop-color="#80B0D0" />
+                        <stop offset="1" stop-color="#4D83AD" />
                     </linearGradient>
                 </defs>
                 <rect x="18" y="17" width="584" height="482" rx="40" fill="url(#sceneBg)" />
-                <circle cx="518" cy="91" r="39" fill="#EABF78" opacity=".82" />
+                <circle cx="518" cy="91" r="39" fill="#B9DBEE" opacity=".82" />
                 <path d="M70 211 308 51l238 160" fill="none" stroke="#FFFDF7" stroke-width="17" stroke-linecap="round"
                     stroke-linejoin="round" />
-                <rect x="93" y="204" width="430" height="239" rx="24" fill="#FFFCF4" />
-                <path d="M93 408h430v12a24 24 0 0 1-24 24H117a24 24 0 0 1-24-24z" fill="#E9D8BC" />
+                <rect x="93" y="204" width="430" height="239" rx="24" fill="#FDFEFF" />
+                <path d="M93 408h430v12a24 24 0 0 1-24 24H117a24 24 0 0 1-24-24z" fill="#D8E8F2" />
                 <rect x="135" y="243" width="125" height="117" rx="9" fill="url(#windowBg)" />
                 <path d="M197 243v117M135 301h125" stroke="#FFFDF7" stroke-width="8" />
-                <path d="M146 336c16-21 28-17 43-5 15-24 31-28 59-10v39h-102z" fill="#8BAE8A" opacity=".72" />
+                <path d="M146 336c16-21 28-17 43-5 15-24 31-28 59-10v39h-102z" fill="#80AFCE" opacity=".72" />
                 <rect x="289" y="300" width="183" height="89" rx="23" fill="url(#sofaBg)" />
-                <rect x="276" y="350" width="208" height="48" rx="18" fill="#5D8A74" />
-                <rect x="290" y="377" width="22" height="49" rx="10" fill="#476C5E" />
-                <rect x="449" y="377" width="22" height="49" rx="10" fill="#476C5E" />
+                <rect x="276" y="350" width="208" height="48" rx="18" fill="#6196BB" />
+                <rect x="290" y="377" width="22" height="49" rx="10" fill="#416F94" />
+                <rect x="449" y="377" width="22" height="49" rx="10" fill="#416F94" />
                 <rect x="302" y="314" width="54" height="41" rx="13" fill="#E7B27E" />
-                <rect x="400" y="314" width="54" height="41" rx="13" fill="#D4E1C8" />
-                <ellipse cx="380" cy="435" rx="139" ry="13" fill="#D8C6A9" opacity=".62" />
+                <rect x="400" y="314" width="54" height="41" rx="13" fill="#C8E1F1" />
+                <ellipse cx="380" cy="435" rx="139" ry="13" fill="#BDD5E5" opacity=".62" />
                 <circle cx="374" cy="267" r="27" fill="#C9835F" />
                 <path d="M348 264c2-24 16-35 33-31 13 3 21 14 19 28-8-7-16-10-26-10-7 8-15 12-26 13z" fill="#4F5349" />
                 <path d="M340 299c18-17 46-18 66 0l17 69h-103z" fill="#E7B27E" />
-                <path d="M345 308c17-14 41-14 57 0l8 60h-73z" fill="#2F7669" />
-                <path d="M354 367h30l-8 49h-39zM384 367h28l18 49h-39z" fill="#465B54" />
+                <path d="M345 308c17-14 41-14 57 0l8 60h-73z" fill="#4C84AD" />
+                <path d="M354 367h30l-8 49h-39zM384 367h28l18 49h-39z" fill="#3D5871" />
                 <path d="M337 320c-16 13-24 29-25 47M407 318c15 11 22 25 25 39" fill="none" stroke="#C9835F"
                     stroke-width="11" stroke-linecap="round" />
-                <circle cx="494" cy="224" r="9" fill="#0B806F" />
-                <circle cx="494" cy="224" r="28" fill="none" stroke="#0B806F" stroke-opacity=".42" stroke-width="2" />
-                <circle cx="494" cy="224" r="48" fill="none" stroke="#0B806F" stroke-opacity=".2" stroke-width="2"
+                <circle cx="494" cy="224" r="9" fill="#4288B5" />
+                <circle cx="494" cy="224" r="28" fill="none" stroke="#4288B5" stroke-opacity=".42" stroke-width="2" />
+                <circle cx="494" cy="224" r="48" fill="none" stroke="#4288B5" stroke-opacity=".2" stroke-width="2"
                     stroke-dasharray="5 7" />
-                <path d="M494 272v20" stroke="#0B806F" stroke-width="2" stroke-dasharray="4 5" />
-                <path d="M517 381h35v58h-35z" fill="#B97853" />
+                <path d="M494 272v20" stroke="#4288B5" stroke-width="2" stroke-dasharray="4 5" />
+                <path d="M517 381h35v58h-35z" fill="#7796AD" />
                 <path
                     d="M534 386c-30-14-25-42-8-50 19 11 21 28 8 50zM536 392c5-29 24-38 36-28-2 21-15 31-36 28zM531 400c-25-18-45-9-43 7 17 11 31 8 43-7z"
-                    fill="#5F9870" />
+                    fill="#79A7C7" />
                 <rect x="75" y="97" width="177" height="72" rx="17" fill="#FFFEFA" stroke="#FFFFFF" stroke-width="2" />
-                <circle cx="101" cy="121" r="6" fill="#3E9A70" />
-                <text x="117" y="125" fill="#536B60" font-size="11" font-family="Arial, sans-serif" font-weight="700"
+                <circle cx="101" cy="121" r="6" fill="#4A98C4" />
+                <text x="117" y="125" fill="#58768E" font-size="11" font-family="Arial, sans-serif" font-weight="700"
                     letter-spacing="1">HOME STATUS</text>
-                <text x="96" y="151" fill="#24372F" font-size="15" font-family="Arial, sans-serif" font-weight="700">All
+                <text x="96" y="151" fill="#29435D" font-size="15" font-family="Arial, sans-serif" font-weight="700">All
                     rooms connected</text>
                 <circle cx="513" cy="128" r="4" fill="#FFFDF7" opacity=".8" />
                 <circle cx="550" cy="167" r="3" fill="#FFFDF7" opacity=".8" />
