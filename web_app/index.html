@@ -19,16 +19,16 @@
         }
 
         :root {
-            --bg: #F7F5EF;
-            --card: #FFFEFA;
-            --ink: #24372F;
-            --muted: #536B60;
-            --faint: #788B80;
-            --line: #DFE5DC;
-            --accent: #087568;
-            --accent-dark: #075D54;
-            --accent-deep: #174E47;
-            --green: #3E8565;
+            --bg: #F5F7FA;
+            --card: #FFFFFF;
+            --ink: #1E2855;
+            --muted: #525E73;
+            --faint: #718096;
+            --line: #C7CED7;
+            --accent: #263567;
+            --accent-dark: #202957;
+            --accent-deep: #1E2855;
+            --green: #263567;
             --blue: #4E83A6;
             --red: #B8503C;
             --font-hero: 'Geist', 'Inter', 'Segoe UI', sans-serif;
@@ -1534,6 +1534,17 @@
                 animation-duration: 0.01ms !important;
             }
         }
+    
+        /* Radar monitor palette. */
+        nav { background: rgba(245,247,250,.92); border-bottom-color: var(--line); }
+        .g1, .g2, .g3 { background: rgba(38,53,103,.10); }
+        .brand-mark { background: linear-gradient(145deg,#263567,#202957); box-shadow: 0 8px 18px rgba(38,53,103,.18); }
+        .nav-links .nav-cta, .btn-primary { background: linear-gradient(135deg,#263567,#202957); box-shadow: 0 8px 22px rgba(38,53,103,.2); }
+        .btn-primary:hover { box-shadow: 0 12px 28px rgba(38,53,103,.28); }
+        .hero-badge, .visual-note-icon, .fi-orange, .fi-green, .fi-blue { background: #E7ECF4; border-color: #C7CED7; color: var(--accent-dark); }
+        .how-it-works, .story { background: linear-gradient(180deg,rgba(38,53,103,.05),transparent); }
+        .faq-q:focus-visible, a:focus-visible, button:focus-visible { outline-color: rgba(38,53,103,.48); }
+        @media (max-width: 720px) { .nav-links a[href="/radar/"] { display: inline; } }
     </style>
 </head>
 
@@ -1555,6 +1566,7 @@
             <a href="#features">Features</a>
             <a href="#faq">FAQ</a>
             <a href="#download">Download</a>
+            <a href="/radar/">Radar test</a>
             <a href="enquiry.html" class="nav-cta">Enquire</a>
         </div>
     </nav>
@@ -1570,9 +1582,7 @@
             <div class="hero-btns">
                 <a class="btn-primary" href="enquiry.html" style="display:inline-block;text-decoration:none;">Send an
                     Enquiry</a>
-                <button class="btn-secondary" type="button"
-                    onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See How It
-                    Works</button>
+                <a class="btn-secondary" href="/radar/" style="display:inline-block;text-decoration:none;">Try the Radar Test</a>
             </div>
             <div class="hero-trust">
                 <div class="hero-trust-item">
@@ -1986,6 +1996,7 @@
             <a href="#features">Features</a>
             <a href="#faq">FAQ</a>
             <a href="#download">Download App</a>
+            <a href="/radar/">Radar test</a>
             <a href="enquiry.html">Enquire</a>
         </div>
     </footer>
