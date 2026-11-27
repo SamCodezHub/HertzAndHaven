@@ -1548,6 +1548,17 @@
         .how-it-works, .story { background: linear-gradient(180deg,rgba(38,53,103,.05),transparent); }
         .faq-q:focus-visible, a:focus-visible, button:focus-visible { outline-color: rgba(38,53,103,.48); }
         @media (max-width: 720px) { .nav-links a[href="/radar/"] { display: inline; } }
+
+        /* Let copy occupy more of the available desktop width. */
+        @media (min-width: 901px) {
+            .hero { max-width: 1340px; grid-template-columns: minmax(0, 1.12fr) minmax(390px, .88fr); }
+            .hero h1 { max-width: 740px; }
+            .hero-sub { max-width: 690px; }
+            .problem, .how-inner, .features, .numbers, footer { max-width: 1220px; }
+            .story-inner { max-width: 980px; }
+            .faq { max-width: 1000px; }
+            .section-header p { max-width: 760px; }
+        }
     </style>
 </head>
 
@@ -1568,7 +1579,6 @@
             <a href="#how">How It Works</a>
             <a href="#features">Features</a>
             <a href="#faq">FAQ</a>
-            <a href="#download">Download</a>
             <a href="/radar/">Radar test</a>
             <a href="enquiry.html" class="nav-cta">Enquire</a>
         </div>
@@ -1949,48 +1959,6 @@
         </div>
     </section>
 
-    <!-- ═══════ DOWNLOAD APP ═══════ -->
-    <section class="section download-section" id="download">
-        <div class="download-box">
-            <div class="download-copy">
-                <div class="download-eyebrow">Download the Hertz &amp; Haven app</div>
-                <h2>Bring peace of mind with you.</h2>
-                <p>Install Hertz &amp; Haven on Android or Windows, or check the app stores for current availability.
-                </p>
-            </div>
-            <div class="download-grid" aria-label="Download options">
-                <a class="download-link" href="https://apps.apple.com/in/search?term=Hertz%20%26%20Haven"
-                    target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path
-                            d="M16.37 12.06c.02 2.2 1.93 2.93 1.95 2.94-.02.05-.3 1.04-.99 2.06-.6.88-1.22 1.75-2.2 1.77-.96.02-1.27-.57-2.37-.57-1.1 0-1.45.55-2.36.59-.95.04-1.67-.95-2.27-1.82-1.23-1.78-2.17-5.04-.91-7.24.62-1.09 1.73-1.78 2.94-1.8.92-.02 1.79.62 2.36.62.57 0 1.64-.77 2.77-.66.47.02 1.8.19 2.65 1.42-.07.04-1.58.92-1.57 2.69ZM14.55 6.6c.5-.6.84-1.42.75-2.24-.72.03-1.59.48-2.11 1.08-.46.53-.86 1.36-.75 2.16.8.06 1.61-.4 2.11-1Z" />
-                    </svg>
-                    <span><small>For iPhone and iPad</small><strong>Check App Store availability</strong></span>
-                </a>
-                <a class="download-link" href="https://play.google.com/store/search?q=Hertz%20%26%20Haven&amp;c=apps"
-                    target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path
-                            d="M3.2 2.8c-.14.22-.2.5-.2.83v16.74c0 .34.07.62.2.84L12.56 12 3.2 2.8Zm10.4 7.18L5.36 1.67l11.47 6.52-3.23 1.79Zm4.48 2.48-3.02-1.68 3.32-1.84 2.08 1.18c.72.41.72 1.05 0 1.46l-2.38.88ZM5.36 22.33l8.24-8.31 3.23 1.79L5.36 22.33Zm7.2-10.33 4.27 2.37-11.47 6.52 7.2-8.89Z" />
-                    </svg>
-                    <span><small>For Android phones</small><strong>Check Google Play availability</strong></span>
-                </a>
-                <a class="download-link" href="./Hertz-and-Haven-Zen1.apk" download="Hertz-and-Haven-Zen1.apk"
-                    aria-describedby="download-note">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                        stroke-linejoin="round" aria-hidden="true">
-                        <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" />
-                    </svg>
-                    <span><small>Android package · Android 8+</small><strong>Download Hertz &amp; Haven
-                            APK</strong></span>
-                </a>
-                <p class="download-note" id="download-note">The Windows installer downloads from GitHub Releases.
-                    Android downloads the APK directly; your phone may ask you to allow installation from your browser.
-                    App Store and Google Play buttons open availability searches.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- ═══════ FOOTER ═══════ -->
     <footer>
         <span>&copy; 2026 Hertz &amp; Haven &middot; Young Founders Challenge 2026 &middot; Privacy-minded family
@@ -1998,7 +1966,6 @@
         <div class="footer-links">
             <a href="#features">Features</a>
             <a href="#faq">FAQ</a>
-            <a href="#download">Download App</a>
             <a href="/radar/">Radar test</a>
             <a href="enquiry.html">Enquire</a>
         </div>
