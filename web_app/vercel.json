@@ -3,12 +3,12 @@
   "cleanUrls": false,
   "redirects": [
     { "source": "/login.html", "destination": "/enquiry.html", "permanent": false },
-    { "source": "/onboarding", "destination": "/#download", "permanent": false },
-    { "source": "/onboarding.html", "destination": "/#download", "permanent": false },
-    { "source": "/dashboard", "destination": "/#download", "permanent": false },
-    { "source": "/dashboard.html", "destination": "/#download", "permanent": false },
-    { "source": "/family-dashboard", "destination": "/#download", "permanent": false },
-    { "source": "/family-dashboard.html", "destination": "/#download", "permanent": false }
+    { "source": "/onboarding", "destination": "/", "permanent": false },
+    { "source": "/onboarding.html", "destination": "/", "permanent": false },
+    { "source": "/dashboard", "destination": "/", "permanent": false },
+    { "source": "/dashboard.html", "destination": "/", "permanent": false },
+    { "source": "/family-dashboard", "destination": "/", "permanent": false },
+    { "source": "/family-dashboard.html", "destination": "/", "permanent": false }
   ],
   "rewrites": [
     { "source": "/radar", "destination": "/radar/index.html" },
