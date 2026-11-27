@@ -1,0 +1,94 @@
+:root{color-scheme:light;font:15px/1.5 "Century Gothic","Segoe UI",sans-serif;background:#fff;color:#1e2855;--muted:#525e73;--stroke:#c7ced7;--surface:#fff;--accent:#263567}
+*{box-sizing:border-box}
+body{margin:0}
+main{width:min(100% - 2rem,76rem);margin:2.2rem auto 3rem}
+h1,h2,p{margin:0}
+h1{font-size:clamp(1.4rem,4vw,2rem);letter-spacing:-.035em;line-height:1.15}
+h2{font-size:1rem}
+.mast,.brand,.section-head,.controls{display:flex;align-items:center;gap:.65rem}
+.mast,.section-head{justify-content:space-between}
+.mast{margin-bottom:1.3rem}
+.brand{gap:.85rem}
+.brand p,.section-head span,small,.metric span,dt,.status>span+span{color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--stroke);border-radius:.9rem;padding:1rem;min-width:0}
+.out-panel{margin-top:.85rem;border-left:3px solid var(--accent)}
+.out-panel strong{display:block;font-size:1.65rem;color:var(--accent);margin:.2rem 0}
+.out-panel p{color:var(--muted)}
+.fall-panel{margin-top:.85rem;border-left:3px solid var(--accent)}
+.fall-panel[data-tone=alert]{border-color:#ae3342;background:#fff3f2}
+.fall-panel[data-tone=alert] .fall-status{color:#862037}
+.fall-head{flex-wrap:wrap}
+#fall-config{color:var(--muted);font-size:.85rem}
+.fall-status{font-size:1.3rem;font-weight:700;margin-top:.75rem}
+.fall-history{border-top:1px solid var(--stroke);padding-top:.65rem}
+.fall-history summary{cursor:pointer}
+.fall-history ol{margin:.55rem 0 .9rem;padding-left:1.6rem;max-height:12rem;overflow:auto}
+.fall-history .button{display:inline-block;margin-bottom:.25rem}
+.lockbox-panel{margin-top:.85rem;border-left:3px solid var(--accent)}
+.lockbox-head{flex-wrap:wrap}.lockbox-head p{color:var(--muted);font-size:.85rem}
+.lockbox-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem;margin-top:1rem}
+.caregiver-card,.lockbox-control{border:1px solid var(--stroke);padding:1rem;min-width:0}
+.caregiver-card h3{margin:0 0 .45rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.04em}
+.caregiver-card strong{display:block;margin:.85rem 0 .2rem;font:700 clamp(1.45rem,4vw,2rem)/1.2 Consolas,monospace;letter-spacing:.13em;color:var(--accent)}
+.lockbox-control{position:relative;padding-left:5.3rem}.lockbox-control form{margin:.8rem 0}.lockbox-control>button{margin-top:.6rem}
+.lockbox-icon{position:absolute;left:1rem;top:1rem;width:3.2rem;height:3.3rem;border:3px solid var(--accent);background:#f4f6f8}
+.lockbox-icon::before{content:"";position:absolute;width:1.8rem;height:1.55rem;border:3px solid var(--accent);border-bottom:0;border-radius:1rem 1rem 0 0;left:.42rem;top:-1.7rem}
+.lockbox-panel[data-state=unlocked] .lockbox-icon::before{transform:translateX(1rem) rotate(28deg);transform-origin:left bottom}
+.lockbox-panel[data-state=unlocked] .lockbox-icon{border-color:#19705a}.lockbox-panel[data-state=unlocked] .lockbox-icon::before{border-color:#19705a}
+input{border:1px solid #a6afbd;border-radius:.55rem;padding:.48rem .72rem;color:inherit;font:inherit;max-width:10rem}
+.connection{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+label{display:block;color:var(--muted);font-size:.86rem;margin-bottom:.4rem}
+.controls{flex-wrap:wrap}
+button,select,.button{border:1px solid #a6afbd;border-radius:.55rem;padding:.48rem .72rem;background:#fff;color:inherit;font:inherit;text-decoration:none}
+select{max-width:min(100%,27rem)}
+button,.button{cursor:pointer}
+button:disabled{cursor:default;opacity:.5}
+button:not(:disabled):hover,.button:hover{border-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.primary{background:#202957;border-color:#202957;color:#fff;font-weight:700}
+.badge{display:inline-block;padding:.25rem .65rem;border-radius:1rem;background:#e4e7ed;color:#29334f;font-weight:650}
+.badge[data-tone=live]{background:#dceee9;color:#155442}
+.badge[data-tone=warning]{background:#fff0cb;color:#6a4610}
+.badge[data-tone=error]{background:#f8dce0;color:#77283e}
+.status{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;font-size:.84rem}
+.message{color:#87253c;flex-basis:100%}
+.metrics,.charts,.details{display:grid;gap:.85rem;margin-top:.85rem}
+.metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+.charts{grid-template-columns:repeat(2,minmax(0,1fr))}
+.details{grid-template-columns:minmax(17rem,1fr) minmax(0,1.55fr)}
+.metric strong{font-size:clamp(1.5rem,5vw,2.7rem);line-height:1.25;font-variant-numeric:tabular-nums;font-weight:650}
+.metric h2{color:var(--muted);font-weight:500;margin-bottom:.25rem}
+canvas{width:100%;height:11.75rem;display:block;margin-top:.5rem}
+.section-head span{font-size:.79rem}
+.note{color:#444e64;margin:.45rem 0 .75rem}
+dl{margin:0}
+dl div{display:flex;justify-content:space-between;gap:.6rem;border-top:1px solid var(--stroke);padding:.32rem 0}
+dd{margin:0;font-variant-numeric:tabular-nums}
+pre{margin:.65rem 0 0;background:#f2f4f7;border:1px solid var(--stroke);border-radius:.55rem;min-height:13.25rem;height:calc(100% - 3.05rem);max-height:18rem;padding:.65rem;overflow:auto;font:12px/1.55 Consolas,monospace;color:#25334e;white-space:pre-wrap;overflow-wrap:anywhere}
+pre:empty::before{content:"Serial lines appear here after connection.";color:var(--muted)}
+@media(max-width:720px){.charts,.details{grid-template-columns:1fr}main{margin-top:1rem}.panel{padding:.75rem}.connection{align-items:start}}
+@media(max-width:420px){.metrics{gap:.4rem}.metric h2{font-size:.79rem}.mast{align-items:start}.brand{gap:.45rem}.mark{display:none}}
+
+main{max-width:74rem}
+.mast{position:relative;isolation:isolate;padding:1.3rem 0 1.5rem;border-bottom:2px solid var(--accent);margin:0}
+.mast::before{content:"";position:absolute;z-index:-1;inset:0 0 0 auto;width:48%;background:var(--cover-lines) right top / cover no-repeat;opacity:.58}
+.brand{gap:1rem}.crest{object-fit:contain}.brand p{color:#283656;font-weight:650;font-size:.84rem}
+h1,.section-head h2,.diagnostics h2{font-family:Impact,"Arial Narrow",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.015em}
+h1{font-size:clamp(2.2rem,5vw,3.35rem);line-height:1}
+.section-head h2,.diagnostics h2{font-size:1.45rem;line-height:1.2}
+.panel{border-radius:0}
+.connection{border:0;border-bottom:1px solid var(--stroke);padding:1rem 0}
+button,select,.button{border-radius:3px}
+.mast .button{background:white}
+.fall-panel,.out-panel,.lockbox-panel{background:#edf1f5;border:0;border-left:4px solid var(--accent);padding:1.25rem 1.5rem}
+.fall-status{font-size:clamp(1.35rem,3vw,1.9rem);line-height:1.2}
+.fall-history{font-size:.86rem}
+.metrics{gap:0;border-block:1px solid var(--stroke);margin-top:1.4rem}
+.metric{border:0;padding:1.1rem}.metric+.metric{border-left:1px solid var(--stroke)}
+.metric strong{font-family:"Segoe UI",sans-serif;font-weight:600;letter-spacing:-.055em}
+.chart,.diagnostics,.console{border:0;border-top:2px solid var(--accent);padding:1rem 0}
+.charts,.details{gap:1.8rem;margin-top:1.6rem}
+.note{min-height:1.5em}.controls{min-width:0}.connection>div{max-width:100%}
+@media(max-width:720px){.charts,.details,.lockbox-grid{grid-template-columns:1fr;gap:1rem}.fall-panel,.lockbox-panel{padding:1rem}.mast::before{width:32%}.brand{gap:.6rem}.metric{padding:.65rem}.metric h2{font-size:.8rem}}
+@media(max-width:420px){.crest{width:32px;height:42px}.mast .button{font-size:.8rem}.metrics{gap:0}}
+:root{--cover-lines:none}
