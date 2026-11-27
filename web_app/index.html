@@ -1559,6 +1559,16 @@
             .faq { max-width: 1000px; }
             .section-header p { max-width: 760px; }
         }
+
+        .demo-section { max-width: 1220px; margin: 0 auto; padding: 42px 48px 72px; display: grid; grid-template-columns: minmax(270px,.65fr) minmax(0,1.35fr); gap: clamp(24px,4vw,60px); align-items: center; }
+        .demo-eyebrow { display: inline-block; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 12px; }
+        .demo-copy h2 { font-size: clamp(28px,3vw,39px); line-height: 1.15; margin-bottom: 16px; }
+        .demo-copy p { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 14px; }
+        .demo-copy .demo-caption { font-size: 12px; }
+        .demo-player { min-width: 0; background: #e7f2f9; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; box-shadow: 0 18px 38px rgba(39,85,121,.12); }
+        .demo-player video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #172b40; }
+        #video-status { margin: 0; padding: 9px 15px; color: var(--muted); font-size: 12px; }
+        @media (max-width: 800px) { .demo-section { grid-template-columns: 1fr; padding: 38px 24px 60px; } }
     </style>
 </head>
 
@@ -1690,6 +1700,20 @@
                 </div>
                 <div><strong>Thoughtful, everyday protection</strong><span>Privacy first. Family connected.</span></div>
             </div>
+        </div>
+    </section>
+
+    <!-- PROJECT DEMONSTRATION -->
+    <section class="section demo-section" id="demonstration" aria-labelledby="demo-title">
+        <div class="demo-copy">
+            <span class="demo-eyebrow">See it in action</span>
+            <h2 id="demo-title">Project Demonstration</h2>
+            <p>Watch our short demonstration to see how Hertz &amp; Haven uses radar movement readings to spot a possible fall and show an emergency access code in the lockbox demo.</p>
+            <p class="demo-caption">This is a project demonstration. The radar test on this site uses simulated readings.</p>
+        </div>
+        <div class="demo-player">
+            <video id="project-video" controls playsinline preload="none" aria-label="Hertz and Haven project demonstration"></video>
+            <p id="video-status" role="status">Loading video when this section comes into view…</p>
         </div>
     </section>
 
@@ -2023,6 +2047,37 @@
             counters.forEach(counter => counterObserver.observe(counter));
         }
 
+    </script>
+
+    <script>
+    (() => {
+        const video = document.getElementById('project-video');
+        const status = document.getElementById('video-status');
+        let started = false;
+        async function loadDemo() {
+            if (started) return;
+            started = true;
+            status.textContent = 'Loading project demonstration…';
+            try {
+                const paths = [1, 2, 3].map(n => '/media/project-demonstration.part' + n);
+                const responses = await Promise.all(paths.map(path => fetch(path)));
+                if (responses.some(response => !response.ok)) throw new Error('Video download failed');
+                const parts = await Promise.all(responses.map(response => response.arrayBuffer()));
+                video.src = URL.createObjectURL(new Blob(parts, {type: 'video/mp4'}));
+                video.load();
+                status.textContent = 'Use the player controls to watch the demonstration.';
+            } catch {
+                status.textContent = 'The video could not load. Please refresh and try again.';
+            }
+        }
+        video.addEventListener('error', () => { status.textContent = 'This browser could not play the video.'; });
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(entries => {
+                if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); loadDemo(); }
+            }, {rootMargin: '300px'});
+            observer.observe(video);
+        } else loadDemo();
+    })();
     </script>
 </body>
 
