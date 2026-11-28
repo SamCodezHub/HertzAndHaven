@@ -100,7 +100,7 @@ async function refresh() {
     const select = byId('ports');
     const previous = select.value;
     select.replaceChildren(new Option(usbPorts.length ? 'Select a USB COM port' : 'No USB serial ports found', ''));
-    for (const port of usbPorts) select.add(new Option(port.device + ' � ' + port.description, port.device));
+    for (const port of usbPorts) select.add(new Option(port.device + ' · ' + port.description, port.device));
     select.value = usbPorts.some(port => port.device === previous) ? previous : usbPorts.length === 1 ? usbPorts[0].device : '';
     text('port-hint', usbPorts.length
       ? 'Only physical serial ports are shown. Select the ESP32 USB port, then Connect.'
@@ -295,7 +295,7 @@ function renderFall(state) {
     return;
   }
   const alert = state.active;
-  text('fall-config', 'Supervised mat demo � ' + state.min_range_m.toFixed(1) +
+  text('fall-config', 'Supervised mat demo · ' + state.min_range_m.toFixed(1) +
     '-' + state.max_range_m.toFixed(1) + ' m radar range');
   text('fall-arm', state.armed ? 'Disarm' : 'Arm demo');
   byId('fall-ack').hidden = !alert;
@@ -314,7 +314,7 @@ function renderFall(state) {
     byId('fall-events').replaceChildren(...state.history.map(event => {
       const item = document.createElement('li');
       item.textContent = new Date(event.time * 1000).toLocaleTimeString() +
-        ' � ' + event.range_m.toFixed(2) + ' m � ' + event.peak_mps.toFixed(2) + ' m/s peak';
+        ' · ' + event.range_m.toFixed(2) + ' m · ' + event.peak_mps.toFixed(2) + ' m/s peak';
       return item;
     }));
   }
@@ -417,7 +417,7 @@ function render(data) {
     link.dataset.tone = 'warning';
     text('radar-note', 'Synthetic distance and speed samples are shown in the graphs. No sensor is connected.');
   } else if (data.radar === 'live') {
-    text('link', 'Radar live � ' + data.port);
+    text('link', 'Radar live · ' + data.port);
     link.dataset.tone = 'live';
     let note = data.track
       ? (sample.track_id != null ? 'Following a consistent range in the mat zone.' : 'Brief gap. Showing the last accepted measurement.')
@@ -434,13 +434,13 @@ function render(data) {
     text('radar-note', data.track === undefined ? 'Restart the Windows launcher to enable range tracking.' : note);
     if (data.fall?.armed && data.fall.phase === 'waiting') text('fall-detail', note);
   } else if (data.radar === 'out_live') {
-    text('link', 'Radar OUT live � ' + data.port);
+    text('link', 'Radar OUT live · ' + data.port);
     link.dataset.tone = 'live';
     text('radar-note', "Receiving the sensor's digital OUT signal. Distance and speed require radar UART frames.");
   } else {
     const label = {opening:'Opening',disconnected:'Disconnected',error:'COM port error',open:'Waiting for radar'};
     const status = data.radar === 'out_stale' ? 'Waiting for OUT' : label[data.connection];
-    text('link', status + (active ? ' � ' + data.port : ''));
+    text('link', status + (active ? ' · ' + data.port : ''));
     link.dataset.tone = data.connection === 'error' ? 'error' : active ? 'warning' : 'muted';
     text('radar-note', radarNotes[data.radar]);
   }
@@ -693,11 +693,11 @@ function updateRehearsal() {
   renderFall({
     armed: true, ready: true, phase, active: rehearsalAlert, history: rehearsalHistory,
     min_range_m: 1.2, max_range_m: 5,
-    statusLabel: rehearsalAlert ? 'SOS sent � caregiver alerted'
+    statusLabel: rehearsalAlert ? 'SOS sent · caregiver alerted'
       : checkingIn ? 'Checking on you'
-      : rehearsalResponse === 'okay' ? "You're okay � SOS cancelled" : fallLabels[phase],
+      : rehearsalResponse === 'okay' ? "You're okay · SOS cancelled" : fallLabels[phase],
   });
-  text('fall-config', 'Simulated radar � continuous monitoring');
+  text('fall-config', 'Simulated radar · continuous monitoring');
   text('fall-detail', rehearsalAlert
     ? (rehearsalResponse === 'help' ? 'Help requested. Caregiver notified and emergency access code issued.'
       : 'No response received. Caregiver notified and emergency access code issued.')
