@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { BrandMark } from '../components/primitives';
 
-const ENQUIRY_EMAIL = 'samruddhgamez@gmail.com';
+const ENQUIRY_EMAIL = 'hertznhaven@gmail.com';
 
 export default function Enquiry() {
   const [message, setMessage] = useState('');
@@ -24,7 +24,7 @@ export default function Enquiry() {
       enquiry,
     ].join('\n'));
 
-    setMessage('Your email app should open with your enquiry ready. Press Send there to deliver it.');
+    setMessage('Your email draft should open now. Review it and press Send in your email app. If it doesn’t open, use the address below.');
     window.location.href = `mailto:${ENQUIRY_EMAIL}?subject=${subject}&body=${body}`;
   };
 
@@ -42,8 +42,8 @@ export default function Enquiry() {
               <span className="mt-0.5 block font-display text-[19px] font-bold tracking-[-0.03em] text-ink">Hertz &amp; Haven</span>
             </span>
           </Link>
-          <Link to="/#download" className="text-[13px] font-semibold text-brand-700 transition-colors hover:text-brand-500">
-            Download app
+          <Link to="/radar/" className="text-[13px] font-semibold text-brand-700 transition-colors hover:text-brand-500">
+            Explore radar
           </Link>
         </header>
 
@@ -111,7 +111,7 @@ export default function Enquiry() {
               type="submit"
               className="w-full rounded-xl bg-brand-action px-4 py-3.5 text-[14px] font-bold text-white transition hover:bg-brand-action-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-200"
             >
-              Send enquiry
+              Prepare email
             </button>
           </form>
 
