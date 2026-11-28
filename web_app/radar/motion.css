@@ -635,3 +635,90 @@ button:not(:disabled):active,
 @media (min-width: 781px) and (max-height: 630px) {
   .studio main { zoom: .82; width: min(98%, 96rem); }
 }
+
+/* Match the landing page's light blue visual language while retaining the studio grid. */
+:root {
+  --muted: #526779;
+  --stroke: #d6e3ec;
+  --surface: #fff;
+  --accent: #386f99;
+  --motion-navy: #29435d;
+  --motion-blue: #4e83a6;
+  --motion-shadow: 0 8px 26px rgba(41, 67, 93, .09);
+  color: #29435d;
+  background: #f3f8fc;
+  font-family: 'Geist', 'Inter', 'Segoe UI', sans-serif;
+}
+body {
+  background: radial-gradient(circle at 90% 0%, rgba(150, 183, 200, .14), transparent 32rem), #f3f8fc;
+}
+h1, .section-head h2, .diagnostics h2 {
+  font-family: 'Geist', 'Inter', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: -.025em;
+}
+.mast { border-color: var(--stroke); }
+.mast::before { opacity: .25; }
+.brand p { color: #526779; }
+.panel, .caregiver-card, .lockbox-control, .fall-checkin {
+  border-radius: 14px;
+}
+.fall-panel, .out-panel, .lockbox-panel {
+  border: 1px solid var(--stroke);
+  border-left: 3px solid var(--accent);
+  background: #fff;
+  box-shadow: var(--motion-shadow);
+}
+.chart, .diagnostics, .console {
+  border: 1px solid var(--stroke);
+  background: #fff;
+  box-shadow: var(--motion-shadow);
+}
+.metric strong { color: #29435d; font-family: inherit; letter-spacing: -.045em; }
+button, select, input, .button {
+  border-color: #c9d9e5;
+  border-radius: 9px;
+}
+.primary { background: #386f99; border-color: #386f99; }
+.badge { background: #e9f2f8; color: #315d7d; }
+.caregiver-card, .lockbox-control {
+  border-color: var(--stroke);
+  background: #f8fbfd;
+}
+.caregiver-card strong {
+  border-radius: 8px;
+  color: #386f99;
+  background: #eaf3f9;
+  border-color: #d6e3ec;
+}
+.lockbox-machine { border-radius: 10px; border-color: var(--stroke); }
+.studio .mast {
+  border-bottom: 1px solid var(--stroke);
+  background: rgba(243, 248, 252, .96);
+  backdrop-filter: blur(12px);
+}
+.studio .mast h1 { font-size: clamp(1.7rem, 3vw, 2.15rem); line-height: 1.1; }
+.studio .section-head h2 { font-size: clamp(.95rem, 1.55vw, 1.15rem); line-height: 1.2; }
+.studio .fall-panel { background: #eff6fa; }
+.studio .metrics {
+  overflow: hidden;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--motion-shadow);
+}
+.studio .metric { background: transparent; }
+.studio .metric strong { font-size: clamp(1.45rem, 2.4vw, 2rem); }
+.studio .charts { gap: .55rem; }
+.studio .chart { border-radius: 12px; border-top: 1px solid var(--stroke); }
+.studio .caregiver-card, .studio .lockbox-control { background: #f8fbfd; border-radius: 10px; }
+.studio .take-controls { border-color: var(--stroke); }
+@media (min-width: 781px) {
+  .studio main { gap: .55rem 1rem; }
+  .studio .mast { padding: .15rem 0 .35rem; }
+  .studio .fall-panel { padding: .55rem .85rem; }
+  .studio .chart { padding: .2rem .5rem; }
+  .studio .lockbox-panel { padding: .55rem .75rem; }
+  .studio .lockbox-grid { gap: .4rem; }
+}
