@@ -722,3 +722,8 @@ button, select, input, .button {
   .studio .lockbox-panel { padding: .55rem .75rem; }
   .studio .lockbox-grid { gap: .4rem; }
 }
+
+/* Give plot labels room without growing the one-screen desktop layout. */
+@media (min-width: 781px) {
+  .studio .chart canvas { height: clamp(5.5rem, 12vh, 7rem); }
+}
